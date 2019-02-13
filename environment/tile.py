@@ -13,14 +13,9 @@ class Tile():
         self.width = math.floor(SCREEN_WIDTH / self.map.width)
         self.x = self.width * x
         self.y = self.height * y
-        if self.y == 0:
-            print(self.x)
+        self.unit = None
 
-        # print(f'width: {self.width}, height: {self.height}')
-
-    # def render(self):
-        # pygame.draw.rect(self.map.game.screen, (255, 0, 255), (self.x, self.y, self.width, self.height))
-
+        
 
 
 
