@@ -1,7 +1,7 @@
 import sys, pygame
 from .map import Map
 from units import Enemy
-from interface import TowerSelect
+from interface import TowerSelect, Menu
 from time import sleep
 from threading import Thread
 
@@ -16,13 +16,13 @@ class Game():
         pygame.init()
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         self.map = Map(self)
-        self.interface_components = [TowerSelect(self)]
+        self.interface_components = [TowerSelect(self), Menu(self)]
         self.round = Round(self, 1)
     
 
     def start(self):
         self.map.current_round = self.round
-        self.round.start()
+        # self.round.start()
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:

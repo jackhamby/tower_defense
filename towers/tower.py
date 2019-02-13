@@ -93,48 +93,41 @@ class Projectile():
     def fire(self):
         self.flying = True
 
+    def die(self):
+        self.flying = False
+        for i, projectile in enumerate(self.tower.fired_projectiles):
+            if (projectile == self):
+                del self.tower.fired_projectiles[i]
+                break
+
     def render(self):
-        # print(self.slope)
-        # future_30_x = self.x + 30 if self.x <= self.targeted_enemy_x else self.x - 30
-        # future_30_y = self.x + (30 * self.slope) if self.x <= self.targeted_enemy_y else self.x - (30 * self.slope)
-        # print(f'in 30 clocks u will be at  {future_30_x, future_30_y}')
         if (self.flying):
-            # print(f'{self.x, self.y}')
-            # print(f'{self.targeted_enemy_x, self.targeted_enemy_y}')
-            # if (self.x == self.targeted_enemy_x and
-        
+            # if (not self.targeted_enemy.is_alive):
+            #     self.die()
             if (self.x <= self.targeted_enemy_x):
                 self.x += (1 * self.speed)
-                print(f'{self.x, self.y}')
+                # print(f'{self.x, self.y}')
 
             elif (self.x >= self.targeted_enemy_x):
                 self.x -= (1 * self.speed)
-                print(f'{self.x, self.y}')
+                # print(f'{self.x, self.y}')
 
             if (self.y <= self.targeted_enemy_y):
                 self.y += (self.speed * self.slope)
-                print(f'{self.x, self.y}')
+                # print(f'{self.x, self.y}')
 
             elif (self.y >= self.targeted_enemy_y):
                 self.y -= (self.speed * self.slope)
-                print(f'{self.x, self.y}')
+                # print(f'{self.x, self.y}')
 
             if ( -self.targeted_enemy.height < self.y - self.targeted_enemy_y < self.targeted_enemy.height and
                 -self.targeted_enemy.width < self.x - self.targeted_enemy_x < self.targeted_enemy.height):
-                self.flying = False
                 self.targeted_enemy.hp -= self.tower.attack
-                print(self.targeted_enemy.hp)
+                if (self.targeted_enemy.hp <= 0):
+                    self.tower.targeted_enemy = None
+                    self.targeted_enemy.die()
+                self.die()
 
-            # else:
-            #     # self.y == self.targeted_enemy_y):
-            #     self.flying = False
-            #     self.targeted_enemy.hp -= self.tower.attack
-            #     print(self.targeted_enemy.hp)
-
-            # print(f'{self.x, self.y}')
-            # print(f'{self.targeted_enemy_x, self.targeted_enemy_y}')
-            # point_list = [(self.x, self.y), (self.targeted_enemy.x, self.targeted_enemy.y), (self.x, self.targeted_enemy.y)]
-            # pygame.draw.polygon(self.game.screen, (0, 0, 255), point_list, 3)
             pygame.draw.rect(self.game.screen, (0, 0, 255), (self.x, self.y, self.width, self.height))
 
 

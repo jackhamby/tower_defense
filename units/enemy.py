@@ -21,6 +21,13 @@ class Enemy():
         self.hp = self.max_hp
 
 
+    def die(self):
+        self.is_alive = False
+        for i, enemy in enumerate(self.round.enemies):
+            if (enemy == self):
+                # print('deleting')
+                del self.round.enemies[i]
+
     def spawn(self):
         self.is_alive = True
         self.current_tile = self.map.map[7][4]
