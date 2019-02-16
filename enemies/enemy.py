@@ -11,16 +11,6 @@ class Enemy():
         self.map = rround.map
         self.current_tile = None
 
-        # Attributes
-        self.width = 20
-        self.height = 20
-        self.max_speed = 3
-        self.speed = self.max_speed
-        self.is_alive = False
-        self.max_hp = 100
-        self.hp = self.max_hp
-
-
     def die(self):
         self.is_alive = False
         for i, enemy in enumerate(self.round.enemies):

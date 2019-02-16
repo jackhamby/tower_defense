@@ -18,30 +18,20 @@ class Menu():
         self.x = 25
         self.y = 25
         self.buttons = [StartButton(self)]
-        # print(self.x, self.y)
-        # self.tower_icons = [TowerIcon(self)]
 
 
     def render(self):
         pygame.draw.rect(self.game.screen, (0, 0, 0), (self.x, self.y, self.width, self.height))
         for button in self.buttons:
             button.render()
-        # for icon in self.tower_icons:
-        #     icon.render()
-
-    # def handle_click(self, x, y):
 
 
     def handle_mouse_down(self, x, y):
-        # pass
         for button in self.buttons:
             button.handle_mouse_down(x, y)
 
     def handle_mouse_up(self, x, y):
         pass
-        # for icon in self.tower_icons:
-        #     icon.handle_mouse_up(x, y)
-        # # pass
 
 
 

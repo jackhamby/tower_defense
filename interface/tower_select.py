@@ -1,5 +1,6 @@
 import pygame, math
-from towers import Tower
+from towers import ArrowTower, Tower
+
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 800
 
@@ -13,16 +14,13 @@ class TowerSelect():
         self.height = math.floor(SCREEN_HEIGHT * 0.1)
         self.x = 0 
         self.y = SCREEN_HEIGHT - self.height
-        self.tower_icons = [TowerIcon(self)]
+        self.tower_icons = [TowerIcon(self, ArrowTower)]
 
 
     def render(self):
         pygame.draw.rect(self.game.screen, (0, 0, 0), (self.x, self.y, self.width, self.height))
         for icon in self.tower_icons:
             icon.render()
-
-    # def handle_click(self, x, y):
-
 
     def handle_mouse_down(self, x, y):
         for icon in self.tower_icons:
@@ -41,7 +39,8 @@ class TowerSelect():
 
 class TowerIcon():
     
-    def __init__(self, tower_select):
+    def __init__(self, tower_select, tower):
+        self.tower = tower
         self.game = tower_select.game
         self.tower_select = tower_select
         self.width = math.floor(tower_select.width * .10)
@@ -49,7 +48,6 @@ class TowerIcon():
         self.x = self.tower_select.x + math.floor(0.1 * self.tower_select.width)
         self.y = self.tower_select.y + math.floor(0.1 * self.tower_select.height)
         self.selected_tower = None
-        pass
 
 
     def render(self):
@@ -58,14 +56,14 @@ class TowerIcon():
     def handle_mouse_down(self, x, y):
         if ( x <= self.x + self.width and x >= self.x and
              y <= self.y + self.height and y >= self.y):
-             tower = Tower(self.game, x, y)
-             tower.dragging = True
-             self.selected_tower = tower
-             self.game.map.towers.append(tower)
-            #  print('tower?')
-    
-    # def handle_mouse_up(self, x, y):
-    #     pass
+             if (self.game.player.purchase(self.tower.price)):
+                # print('creating tower')
+                tower = ArrowTower(self.game, x, y)
+                tower.dragging = True
+                self.selected_tower = tower
+                self.game.map.towers.append(tower)
+                # print(self.game.map.towers)
+
 
     def handle_mouse_up(self, x, y):
         # self.x, self.y = x, y

@@ -1,5 +1,5 @@
 from .tile import Tile, GroundTile, PathTile
-from units import Enemy
+# from enemies import K
 import math
 import pygame
 
@@ -44,7 +44,7 @@ class Map():
                 else:
                     map_row.append(PathTile(self, k, i))
             self.map.append(map_row)
-        
+
 
     def get_tile(self, x, y):
         tile = None

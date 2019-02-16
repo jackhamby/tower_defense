@@ -1,7 +1,8 @@
 import sys, pygame
 from .map import Map
-from units import Enemy
-from interface import TowerSelect, Menu
+from .player import Player
+from enemies import Enemy, Kobold
+from interface import TowerSelect, Menu, PlayerDisplay, TowerDetail
 from time import sleep
 from threading import Thread
 
@@ -16,10 +17,10 @@ class Game():
         pygame.init()
         self.screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
         self.map = Map(self)
-        self.interface_components = [TowerSelect(self), Menu(self)]
+        self.interface_components = [TowerSelect(self), Menu(self), PlayerDisplay(self), TowerDetail(self)]
         self.round = Round(self, 1)
+        self.player = Player(self)
     
-
     def start(self):
         self.map.current_round = self.round
         # self.round.start()
@@ -29,9 +30,12 @@ class Game():
                     sys.exit()
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     x, y = event.pos
+                    # print('mouse down')
                     for component in self.interface_components:
                         component.handle_mouse_down(x, y)
+                    # print(self.map.towers)
                     for tower in self.map.towers:
+                        # print('handling')
                         tower.handle_mouse_down(x, y)
                     
                 if event.type == pygame.MOUSEBUTTONUP:
@@ -57,6 +61,14 @@ class Game():
             component.render()
 
 
+    def get_tower_detail(self):
+        for component in self.interface_components:
+            if type(component) == TowerDetail:
+                return component
+        return None
+
+
+
 class Round():
 
     def __init__(self, game, level):
@@ -64,7 +76,7 @@ class Round():
         self.game = game
         self.map = game.map
         self.level = level
-        self.enemies = [Enemy(self) for i in range(level * 10)]
+        self.enemies = [Kobold(self) for i in range(level * 10)]
 
     def start(self):
         spawning_thread = Thread(target=self.spawn_enemies)

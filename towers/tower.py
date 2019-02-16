@@ -7,20 +7,17 @@ class Tower():
     def __init__(self, game, x, y):
         self.map = game.map
         self.game = game
+        self.level = 1
         self.dragging = False
         self.attack_wait = 0
         self.x = x
         self.y = y
-        self.map.towers.append(self)
+        # self.map.towers.append(self)
         self.targeted_enemy = None
         self.fired_projectiles = []
+        self.upgrades = []
 
-        # Attributes
-        self.range = 200
-        self.attack_speed = 100
-        self.width = 20
-        self.height = 50
-        self.attack = 25
+
 
     def render(self):
         pygame.draw.rect(self.game.screen, (255, 0, 0), (self.x, self.y, self.width, self.height))
@@ -58,10 +55,16 @@ class Tower():
                 self.fire_projectile()
 
     def handle_mouse_down(self, x, y):
+        # print('clicked')
         if (x >= self.x and x <= (self.x + self.width)  and
             y >= self.y and y <= (self.y + self.height) and 
             not self.dragging):
+            tower_detail = self.game.get_tower_detail()
+            if (tower_detail):
+                tower_detail.selected_tower = self
+                tower_detail.set_upgrade_icons()
             self.map.selected_tower = self
+            
 
     def handle_mouse_up(self, x, y):
         pass
@@ -87,7 +90,7 @@ class Projectile():
         self.flying = False
         self.width = 5
         self.height = 5
-        self.speed = 7
+        self.speed = self.tower.projectile_speed
         self.targeted_enemy_x, self.targeted_enemy_y = tower.targeted_enemy.x, tower.targeted_enemy.y
 
     def fire(self):
