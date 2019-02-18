@@ -36,8 +36,10 @@ class TowerDetail():
 
 
     def render(self):
-        pygame.draw.rect(self.game.screen, (0, 0, 0), (self.x, self.y, self.width - self.margin, self.height))
+        textsurface = myfont.render(f'Upgrades', False, (0, 0, 0))
+        self.game.screen.blit(textsurface,(self.x, self.y - (self.text_margin * 6)))
 
+        pygame.draw.rect(self.game.screen, (0, 0, 0), (self.x, self.y, self.width - self.margin, self.height))
         if (self.selected_tower):
             # Show attack
             textsurface = myfont.render(f'attack {self.selected_tower.attack}', False, (255, 255, 255))
@@ -71,8 +73,6 @@ class UpgradeButton():
         self.tower_detail = tower_detail
         self.width = math.floor(tower_detail.width * .10)
         self.height = math.floor(tower_detail.height * .50)
-        # self.x = self.tower_detail.x + math.floor(0.1 * self.tower_detail.width)
-        # self.y = self.tower_detail.y + math.floor(0.1 * self.tower_detail.height)
         self.x = x
         self.y = y
         self.upgrade = upgrade
@@ -80,7 +80,9 @@ class UpgradeButton():
 
     def render(self):
         pygame.draw.rect(self.game.screen, (255, 0, 0), (self.x, self.y, self.width, self.height))
-    
+        textsurface = myfont.render(f'${self.upgrade["price"]}', False, (255, 255, 255))
+        self.game.screen.blit(textsurface,(self.x, (self.y + self.height) + self.tower_detail.text_margin))
+
     def handle_mouse_down(self, x, y):
         # pass
         if ( x <= self.x + self.width and x >= self.x and

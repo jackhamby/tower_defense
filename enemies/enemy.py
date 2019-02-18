@@ -4,19 +4,30 @@ import pygame, math
 class Enemy():
 
     def __init__(self, rround):
-        self.x = -1
-        self.y = -1
+        self.x = 0
+        self.y = 0
         self.round = rround
         self.game = rround.game
         self.map = rround.map
         self.current_tile = None
+        self.attack = 1
 
     def die(self):
         self.is_alive = False
-        for i, enemy in enumerate(self.round.enemies):
-            if (enemy == self):
-                # print('deleting')
-                del self.round.enemies[i]
+        try:
+            self.round.enemies.remove(self)
+        except:
+            # print(self.round.enemies)
+            print('failed to delete')
+            pass
+
+        # print(self.round.enemies)
+        # for i, enemy in enumerate(self.round.enemies):
+        #     if (enemy == self):
+        #         # print('deleting')
+        #         del self.round.enemies[i]
+        #         # print(len(self.round.enemies))
+
 
     def spawn(self):
         self.is_alive = True
@@ -25,8 +36,16 @@ class Enemy():
         self.y = self.map.map[7][4].y + self.map.map[7][4].height
 
     def render(self):
+        if (not self.is_alive):
+            return
         self.y -= self.speed
         tile = self.map.get_tile(self.x, self.y)
+        # print(self.y)
+        if ((self.y + self.height) < 0):
+            # print('die')
+            self.die()
+            self.game.player.health -= self.attack
+            # print(len(self.round.enemies))
         if (tile):
             self.current_tile = tile
         if (self.is_alive):

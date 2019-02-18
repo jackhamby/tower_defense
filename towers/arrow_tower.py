@@ -36,7 +36,7 @@ class ArrowTower(Tower):
         self.width = 20
         self.height = 50
         self.attack = 25
-        self.projectile_speed = 7
+        self.projectile_speed = 20
 
         self.upgrades = [upgrade_definition_1, updage_definition_2, updage_definition_3]
 

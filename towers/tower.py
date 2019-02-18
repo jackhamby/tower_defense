@@ -18,7 +18,6 @@ class Tower():
         self.upgrades = []
 
 
-
     def render(self):
         pygame.draw.rect(self.game.screen, (255, 0, 0), (self.x, self.y, self.width, self.height))
         for projectile in self.fired_projectiles:
@@ -29,6 +28,7 @@ class Tower():
         self.fired_projectiles.append(projectile)
         self.attack_wait = self.attack_speed
         projectile.fire()
+        print(self.fired_projectiles)
 
     def try_attack(self):
         if (self.dragging):
@@ -38,15 +38,15 @@ class Tower():
             return
         # No enemy in target, check for new target
         if (not self.targeted_enemy):
-            for enemy in self.map.current_round.enemies:
+            for enemy in self.game.round.enemies:
                 dist = math.sqrt(pow(self.x - enemy.x, 2) + pow(self.y - enemy.y, 2))
                 # Check if enenmy is in range
                 if (dist <= self.range):
                     self.targeted_enemy = enemy
                     self.fire_projectile()
                     break
-        # Already has a target
-        else:
+        # Already has a target which is alive
+        elif(self.targeted_enemy.is_alive):
             dist = math.sqrt(pow(self.x - self.targeted_enemy.x, 2) + pow(self.y - self.targeted_enemy.y, 2))
             # Check if still in range
             if (dist >= self.range):
@@ -54,8 +54,13 @@ class Tower():
             else:
                 self.fire_projectile()
 
+        # Its current target died
+        else:
+            self.targeted_enemy = None
+            return 
+
+
     def handle_mouse_down(self, x, y):
-        # print('clicked')
         if (x >= self.x and x <= (self.x + self.width)  and
             y >= self.y and y <= (self.y + self.height) and 
             not self.dragging):
@@ -98,39 +103,39 @@ class Projectile():
 
     def die(self):
         self.flying = False
-        for i, projectile in enumerate(self.tower.fired_projectiles):
-            if (projectile == self):
-                del self.tower.fired_projectiles[i]
-                break
+        print('dying')
+        self.tower.fired_projectiles.remove(self)
+
+        # for i, projectile in enumerate(self.tower.fired_projectiles):
+        #     if (projectile == self):
+        #         del self.tower.fired_projectiles[i]
+        #         print('destroyed projectile')
+        #         break
 
     def render(self):
         if (self.flying):
-            # if (not self.targeted_enemy.is_alive):
-            #     self.die()
             if (self.x <= self.targeted_enemy_x):
                 self.x += (1 * self.speed)
-                # print(f'{self.x, self.y}')
+                
 
             elif (self.x >= self.targeted_enemy_x):
                 self.x -= (1 * self.speed)
-                # print(f'{self.x, self.y}')
 
             if (self.y <= self.targeted_enemy_y):
                 self.y += (self.speed * self.slope)
-                # print(f'{self.x, self.y}')
 
             elif (self.y >= self.targeted_enemy_y):
                 self.y -= (self.speed * self.slope)
-                # print(f'{self.x, self.y}')
 
             if ( -self.targeted_enemy.height < self.y - self.targeted_enemy_y < self.targeted_enemy.height and
                 -self.targeted_enemy.width < self.x - self.targeted_enemy_x < self.targeted_enemy.height):
                 self.targeted_enemy.hp -= self.tower.attack
                 if (self.targeted_enemy.hp <= 0):
                     self.tower.targeted_enemy = None
+                    self.game.player.gold += self.targeted_enemy.bounty
                     self.targeted_enemy.die()
                 self.die()
-
+ 
             pygame.draw.rect(self.game.screen, (0, 0, 255), (self.x, self.y, self.width, self.height))
 
 

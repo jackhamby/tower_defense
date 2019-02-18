@@ -26,7 +26,7 @@ class Map():
         self.map = None
         self.layout = layout
         self.load_layout()
-        self.current_round = None
+        # self.current_round = None
         self.towers = []
         self.selected_tower = None
 
@@ -66,8 +66,8 @@ class Map():
             tower.render()
         if (self.selected_tower):
             pygame.draw.circle(self.game.screen, (111, 111, 111), (self.selected_tower.x + math.floor(self.selected_tower.width/2), self.selected_tower.y + math.floor(self.selected_tower.height/2)), self.selected_tower.range, 2)
-        if (self.current_round):
-            for enemy in self.current_round.enemies:
+        if (self.game.round):
+            for enemy in self.game.round.enemies:
                 enemy.render()
 
 

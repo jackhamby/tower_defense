@@ -3,7 +3,8 @@ from towers import ArrowTower, Tower
 
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 800
-
+pygame.font.init()
+myfont = pygame.font.SysFont('Comic Sans MS', 15)
 
 
 class TowerSelect():
@@ -13,11 +14,14 @@ class TowerSelect():
         self.width = math.floor(SCREEN_WIDTH * 0.4)
         self.height = math.floor(SCREEN_HEIGHT * 0.1)
         self.x = 0 
+        self.text_margin = 5
         self.y = SCREEN_HEIGHT - self.height
         self.tower_icons = [TowerIcon(self, ArrowTower)]
 
 
     def render(self):
+        textsurface = myfont.render(f'Shop', False, (0, 0, 0))
+        self.game.screen.blit(textsurface,(self.x, self.y - (self.text_margin * 6)))
         pygame.draw.rect(self.game.screen, (0, 0, 0), (self.x, self.y, self.width, self.height))
         for icon in self.tower_icons:
             icon.render()
@@ -52,6 +56,8 @@ class TowerIcon():
 
     def render(self):
         pygame.draw.rect(self.game.screen, (255, 0, 0), (self.x, self.y, self.width, self.height))
+        textsurface = myfont.render(f'${self.tower.price}', False, (255, 255, 255))
+        self.game.screen.blit(textsurface,(self.x, (self.y + self.height) + self.tower_select.text_margin))
     
     def handle_mouse_down(self, x, y):
         if ( x <= self.x + self.width and x >= self.x and
