@@ -1,5 +1,5 @@
 import pygame, math
-from towers import ArrowTower, Tower
+from towers import ArrowTower, MagicTower, Tower
 
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 800
@@ -16,15 +16,20 @@ class TowerSelect():
         self.x = 0 
         self.text_margin = 5
         self.y = SCREEN_HEIGHT - self.height
-        self.tower_icons = [TowerIcon(self, ArrowTower)]
+        self.tower_icons = [TowerIcon(self, ArrowTower), TowerIcon(self, MagicTower)]
 
 
     def render(self):
         textsurface = myfont.render(f'Shop', False, (0, 0, 0))
         self.game.screen.blit(textsurface,(self.x, self.y - (self.text_margin * 6)))
         pygame.draw.rect(self.game.screen, (0, 0, 0), (self.x, self.y, self.width, self.height))
+        inc =  math.floor(self.width * .20)
+        x = self.x + math.floor(0.1 * self.width)
+        y =  self.y + math.floor(0.1 * self.height)
         for icon in self.tower_icons:
-            icon.render()
+            icon.render(x, y)
+            x += inc
+
 
     def handle_mouse_down(self, x, y):
         for icon in self.tower_icons:
@@ -49,13 +54,17 @@ class TowerIcon():
         self.tower_select = tower_select
         self.width = math.floor(tower_select.width * .10)
         self.height = math.floor(tower_select.height * .50)
-        self.x = self.tower_select.x + math.floor(0.1 * self.tower_select.width)
-        self.y = self.tower_select.y + math.floor(0.1 * self.tower_select.height)
+        # self.x = self.tower_select.x + math.floor(0.1 * self.tower_select.width)
+        # self.y = self.tower_select.y + math.floor(0.1 * self.tower_select.height)
         self.selected_tower = None
 
 
-    def render(self):
-        pygame.draw.rect(self.game.screen, (255, 0, 0), (self.x, self.y, self.width, self.height))
+    def render(self, x, y):
+        self.x = x
+        self.y = y
+        # pygame.draw.rect(self.game.screen, (255, 0, 0), (self.x, self.y, self.width, self.height))
+        self.game.screen.blit(self.tower.icon, (self.x, self.y))
+
         textsurface = myfont.render(f'${self.tower.price}', False, (255, 255, 255))
         self.game.screen.blit(textsurface,(self.x, (self.y + self.height) + self.tower_select.text_margin))
     
@@ -64,7 +73,7 @@ class TowerIcon():
              y <= self.y + self.height and y >= self.y):
              if (self.game.player.purchase(self.tower.price)):
                 # print('creating tower')
-                tower = ArrowTower(self.game, x, y)
+                tower = self.tower(self.game, x, y)
                 tower.dragging = True
                 self.selected_tower = tower
                 self.game.map.towers.append(tower)

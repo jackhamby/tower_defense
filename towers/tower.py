@@ -19,7 +19,11 @@ class Tower():
 
 
     def render(self):
-        pygame.draw.rect(self.game.screen, (255, 0, 0), (self.x, self.y, self.width, self.height))
+        # icon = pygame.transform.scale( pygame.image.load("images/magic_tower2.png"), (40, 70))
+        # pawn_icon_2 = pygame.transform.scale(pygame.image.load("images/pawn2.png"), (math.floor(width/8), math.floor(width/8)))
+        self.game.screen.blit(self.icon, (self.x, self.y))
+
+        # pygame.draw.rect(self.game.screen, (255, 0, 0), (self.x, self.y, self.width, self.height))
         for projectile in self.fired_projectiles:
             projectile.render()
     
@@ -28,7 +32,6 @@ class Tower():
         self.fired_projectiles.append(projectile)
         self.attack_wait = self.attack_speed
         projectile.fire()
-        print(self.fired_projectiles)
 
     def try_attack(self):
         if (self.dragging):
@@ -103,14 +106,7 @@ class Projectile():
 
     def die(self):
         self.flying = False
-        print('dying')
         self.tower.fired_projectiles.remove(self)
-
-        # for i, projectile in enumerate(self.tower.fired_projectiles):
-        #     if (projectile == self):
-        #         del self.tower.fired_projectiles[i]
-        #         print('destroyed projectile')
-        #         break
 
     def render(self):
         if (self.flying):

@@ -1,4 +1,3 @@
-
 from .tower import Tower
 import pygame
 
@@ -23,10 +22,10 @@ updage_definition_3 = {
     "attack" : 50
 }
 
-icon = pygame.transform.scale( pygame.image.load("images/arrow_tower.png"), (25, 40))
+icon = pygame.transform.scale( pygame.image.load("images/magic_tower.png"), (25, 40))
 
 
-class ArrowTower(Tower):
+class MagicTower(Tower):
     price = 2
     icon = icon
 
@@ -34,12 +33,12 @@ class ArrowTower(Tower):
         Tower.__init__(self, game, x, y)
 
         # Attributes
-        self.range = 200
-        self.attack_speed = 80
+        self.range = 100
+        self.attack_speed = 10
         self.width = 25
         self.height = 40
-        self.attack = 25
-        self.projectile_speed = 20
+        self.attack = 5
+        self.projectile_speed = 25
         self.icon = icon
 
 

@@ -6,6 +6,7 @@ SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 800
 pygame.font.init()
 myfont = pygame.font.SysFont('Comic Sans MS', 30)
+myfont2 = pygame.font.SysFont('Comic Sans MS', 15)
 
 
 
@@ -15,15 +16,20 @@ class Menu():
         self.game = game
         self.width = math.floor(SCREEN_WIDTH * 0.25)
         self.height = math.floor(SCREEN_HEIGHT * 0.1)
+
         self.x = 25
         self.y = 25
         self.buttons = [StartButton(self)]
 
 
     def render(self):
+
+
         pygame.draw.rect(self.game.screen, (0, 0, 0), (self.x, self.y, self.width, self.height))
         for button in self.buttons:
             button.render()
+        textsurface = myfont2.render(f'round {self.game.round.level}', False, (255, 255, 255))
+        self.game.screen.blit(textsurface,(self.x + math.floor(self.width / 2), self.y ))
 
 
     def handle_mouse_down(self, x, y):
