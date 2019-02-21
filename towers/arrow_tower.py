@@ -4,6 +4,7 @@ import pygame
 
 
 upgrade_definition_1 = {
+    "level" : 2,
     "price" : 2,
     "attack_speed" : -10,
     "range" : 50,
@@ -14,16 +15,18 @@ updage_definition_2 = {
     "price" : 7,
     "attack_speed" : -20,
     "range" : 100,
-    "attack" : 25
+    "attack" : 25,
+    "level" : 3
 }
 updage_definition_3 = {
     "price" : 15,
     "attack_speed" : -30,
     "range" : 300,
-    "attack" : 50
+    "attack" : 50,
+    "level" : 4
 }
 
-icon = pygame.transform.scale( pygame.image.load("images/arrow_tower.png"), (25, 40))
+icon = pygame.transform.scale( pygame.image.load("images/arrow_tower1.png"), (25, 40))
 
 
 class ArrowTower(Tower):
@@ -40,7 +43,14 @@ class ArrowTower(Tower):
         self.height = 40
         self.attack = 25
         self.projectile_speed = 20
-        self.icon = icon
+        self.base_icon_path = "arrow_tower"
+        # icon = pygame.transform.scale( pygame.image.load("images/arrow_tower1.png"), (25, 40))
+        # self.icon = icon
+
+        # @property
+        # def icon(self):
+        #     print(self.level)
+        #     return pygame.transform.scale( pygame.image.load(f'images/arrow_tower{self.level}.png'), (25, 40))
 
 
         self.upgrades = [upgrade_definition_1, updage_definition_2, updage_definition_3]

@@ -51,7 +51,8 @@ class TowerDetail():
 
             # Show upgrade buttns
             for upgrade_button in self.upgrade_buttons:
-                upgrade_button.render()
+                if (upgrade_button.upgrade in self.selected_tower.upgrades):
+                    upgrade_button.render()
 
 
     def handle_mouse_down(self, x, y):
@@ -80,7 +81,7 @@ class UpgradeButton():
 
     def render(self):
         pygame.draw.rect(self.game.screen, (255, 0, 0), (self.x, self.y, self.width, self.height))
-        textsurface = myfont.render(f'${self.upgrade["price"]}', False, (255, 255, 255))
+        textsurface = myfont.render(f'${self.upgrade["price"]}', False, (0, 0, 0))
         self.game.screen.blit(textsurface,(self.x, (self.y + self.height) + self.tower_detail.text_margin))
 
     def handle_mouse_down(self, x, y):
@@ -88,7 +89,7 @@ class UpgradeButton():
         if ( x <= self.x + self.width and x >= self.x and
              y <= self.y + self.height and y >= self.y):
              if (self.game.player.purchase(self.upgrade['price'])):
-                print('purchased upgrade!!!!')
+                # print('purchased upgrade!!!!')
                 self.apply_upgrade()
 
     def apply_upgrade(self):
@@ -98,7 +99,12 @@ class UpgradeButton():
                 continue
             previous_value = getattr(self.tower_detail.selected_tower, attribute)
             upgraded_value = previous_value + upgrade_value
+            # print(self.upgrade)
+            # print(self.tower_detail.selected_tower.level)
+            # self.tower_detail.selected_tower.upgrades.remove(self.upgrade)
             setattr(self.tower_detail.selected_tower, attribute, upgraded_value)
+        self.tower_detail.selected_tower.level = self.upgrade['level']
+        self.tower_detail.selected_tower.upgrades.remove(self.upgrade)
 
     def handle_mouse_up(self, x, y):
         pass

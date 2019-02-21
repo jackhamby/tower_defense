@@ -1,4 +1,8 @@
 from .enemy import Enemy
+import pygame
+
+icon = pygame.transform.scale( pygame.image.load("images/kobold.png"), (20, 20))
+
 
 class Kobold(Enemy):
 
@@ -16,3 +20,4 @@ class Kobold(Enemy):
         self.max_hp = 50
         self.hp = self.max_hp
         self.bounty = 1
+        self.icon = icon

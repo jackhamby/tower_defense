@@ -22,14 +22,14 @@ class PlayerDisplay():
 
 
     def render(self):
-        pygame.draw.rect(self.game.screen, (0, 0, 0), (self.x, self.y, self.width - self.margin, self.height))
+        pygame.draw.rect(self.game.screen, (255, 255, 255), (self.x, self.y, self.width - self.margin, self.height))
 
         # Show heatlh
-        textsurface = myfont.render(f'health {self.game.player.health}', False, (255, 255, 255))
+        textsurface = myfont.render(f'health {self.game.player.health}', False, (0, 0, 0))
         self.game.screen.blit(textsurface,(self.x + self.text_margin,self.y + self.text_margin))
 
         # Show gold
-        textsurface = myfont.render(f'gold {self.game.player.gold}', False, (255, 255, 255))
+        textsurface = myfont.render(f'gold {self.game.player.gold}', False, (0, 0, 0))
         self.game.screen.blit(textsurface,(self.x + self.text_margin, self.y + (self.text_margin * 6)))
 
 

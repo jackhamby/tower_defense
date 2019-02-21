@@ -15,13 +15,23 @@ class Tower():
         # self.map.towers.append(self)
         self.targeted_enemy = None
         self.fired_projectiles = []
+
+        # Default attributes
+        self.range = 200
+        self.attack_speed = 80
+        self.width = 25
+        self.height = 40
+        self.attack = 25
+        self.projectile_speed = 20
         self.upgrades = []
+        self.base_icon_path = "arrow_tower"
+
 
 
     def render(self):
         # icon = pygame.transform.scale( pygame.image.load("images/magic_tower2.png"), (40, 70))
         # pawn_icon_2 = pygame.transform.scale(pygame.image.load("images/pawn2.png"), (math.floor(width/8), math.floor(width/8)))
-        self.game.screen.blit(self.icon, (self.x, self.y))
+        self.game.screen.blit(self.get_icon(f'{self.base_icon_path}{self.level}.png'), (self.x, self.y))
 
         # pygame.draw.rect(self.game.screen, (255, 0, 0), (self.x, self.y, self.width, self.height))
         for projectile in self.fired_projectiles:
@@ -82,6 +92,11 @@ class Tower():
     def handle_mouse_motion(self, x, y):
         if (self.dragging):
             self.x, self.y = x, y
+
+
+    def get_icon(self, img_file_name):
+        return pygame.transform.scale( pygame.image.load(f'images/{img_file_name}'), (25, 40))
+
 
 
 

@@ -1,5 +1,6 @@
 import pygame, math
 
+icon = pygame.transform.scale( pygame.image.load("images/kobold.png"), (20, 20))
 
 class Enemy():
 
@@ -12,21 +13,26 @@ class Enemy():
         self.current_tile = None
         self.attack = 1
 
+        # Default Attributes
+        self.width = 20
+        self.height = 20
+        self.max_speed = 3
+        self.speed = self.max_speed
+        self.is_alive = False
+        self.attack = 2
+        self.max_hp = 50
+        self.hp = self.max_hp
+        self.bounty = 1
+        self.icon = icon
+
     def die(self):
         self.is_alive = False
         try:
             self.round.enemies.remove(self)
         except:
-            # print(self.round.enemies)
             print('failed to delete')
             pass
 
-        # print(self.round.enemies)
-        # for i, enemy in enumerate(self.round.enemies):
-        #     if (enemy == self):
-        #         # print('deleting')
-        #         del self.round.enemies[i]
-        #         # print(len(self.round.enemies))
 
 
     def spawn(self):
@@ -50,4 +56,6 @@ class Enemy():
             self.current_tile = tile
         if (self.is_alive):
             pygame.draw.rect(self.game.screen, (0, 255, 0), (self.x, self.y - 10, self.width * (self.hp/self.max_hp), 5))
-            pygame.draw.rect(self.game.screen, (255, 255, 255), (self.x, self.y, self.width, self.height))
+            self.game.screen.blit(self.icon, (self.x, self.y))
+
+            # pygame.draw.rect(self.game.screen, (255, 255, 255), (self.x, self.y, self.width, self.height))

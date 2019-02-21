@@ -25,7 +25,7 @@ class PathTile(Tile):
         Tile.__init__(self, mapp, x, y)
 
     def render(self):
-        pygame.draw.rect(self.map.game.screen, (0, 0, 0), (self.x, self.y, self.width, self.height))
+        pygame.draw.rect(self.map.game.screen, (255, 255, 255), (self.x, self.y, self.width, self.height))
 
         pass
 
@@ -36,6 +36,6 @@ class GroundTile(Tile):
         Tile.__init__(self, mapp, x, y)
 
     def render(self):
-        pygame.draw.rect(self.map.game.screen, (255, 255, 255), (self.x, self.y, self.width, self.height))
+        pygame.draw.rect(self.map.game.screen, (0, 0, 0), (self.x, self.y, self.width, self.height))
 
         pass

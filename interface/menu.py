@@ -25,10 +25,10 @@ class Menu():
     def render(self):
 
 
-        pygame.draw.rect(self.game.screen, (0, 0, 0), (self.x, self.y, self.width, self.height))
+        pygame.draw.rect(self.game.screen, (255, 255, 255), (self.x, self.y, self.width, self.height))
         for button in self.buttons:
             button.render()
-        textsurface = myfont2.render(f'round {self.game.round.level}', False, (255, 255, 255))
+        textsurface = myfont2.render(f'round {self.game.round.level}', False, (0, 0, 0))
         self.game.screen.blit(textsurface,(self.x + math.floor(self.width / 2), self.y ))
 
 

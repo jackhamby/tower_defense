@@ -20,9 +20,9 @@ class TowerSelect():
 
 
     def render(self):
-        textsurface = myfont.render(f'Shop', False, (0, 0, 0))
+        textsurface = myfont.render(f'Shop', False, (255, 255, 255))
         self.game.screen.blit(textsurface,(self.x, self.y - (self.text_margin * 6)))
-        pygame.draw.rect(self.game.screen, (0, 0, 0), (self.x, self.y, self.width, self.height))
+        pygame.draw.rect(self.game.screen, (255, 255, 255), (self.x, self.y, self.width, self.height))
         inc =  math.floor(self.width * .20)
         x = self.x + math.floor(0.1 * self.width)
         y =  self.y + math.floor(0.1 * self.height)
