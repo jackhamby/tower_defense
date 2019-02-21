@@ -25,7 +25,7 @@ updage_definition_3 = {
     "level" : 3
 }
 
-icon = pygame.transform.scale( pygame.image.load("images/magic_tower.png"), (25, 40))
+icon = pygame.transform.scale( pygame.image.load("images/magic_tower1.png"), (25, 40))
 
 
 class MagicTower(Tower):
