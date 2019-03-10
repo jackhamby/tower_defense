@@ -3,6 +3,10 @@ import pygame
 import math
 
 class Tower():
+    width = 25
+    height = 40
+    base_icon_path = "arrow_tower"
+
 
     def __init__(self, game, x, y):
         self.map = game.map
@@ -19,21 +23,14 @@ class Tower():
         # Default attributes
         self.range = 200
         self.attack_speed = 80
-        self.width = 25
-        self.height = 40
         self.attack = 25
         self.projectile_speed = 20
-        self.upgrades = []
-        self.base_icon_path = "arrow_tower"
+        self.upgrades = {}
 
 
 
     def render(self):
-        # icon = pygame.transform.scale( pygame.image.load("images/magic_tower2.png"), (40, 70))
-        # pawn_icon_2 = pygame.transform.scale(pygame.image.load("images/pawn2.png"), (math.floor(width/8), math.floor(width/8)))
-        self.game.screen.blit(self.get_icon(f'{self.base_icon_path}{self.level}.png'), (self.x, self.y))
-
-        # pygame.draw.rect(self.game.screen, (255, 0, 0), (self.x, self.y, self.width, self.height))
+        self.game.screen.blit(self.get_icon(), (self.x, self.y))
         for projectile in self.fired_projectiles:
             projectile.render()
     
@@ -94,8 +91,10 @@ class Tower():
             self.x, self.y = x, y
 
 
-    def get_icon(self, img_file_name):
-        return pygame.transform.scale( pygame.image.load(f'images/{img_file_name}'), (25, 40))
+    def get_icon(self, img_path=None):
+        if (not img_path):
+            img_path = f'{self.base_icon_path}{self.level}.png'
+        return pygame.transform.scale( pygame.image.load(f'images/{img_path}'), (self.width, self.height))
 
 
 
@@ -121,7 +120,10 @@ class Projectile():
 
     def die(self):
         self.flying = False
-        self.tower.fired_projectiles.remove(self)
+        try:
+            self.tower.fired_projectiles.remove(self)
+        except:
+            print('failed to delete projectile')
 
     def render(self):
         if (self.flying):
@@ -141,7 +143,8 @@ class Projectile():
             if ( -self.targeted_enemy.height < self.y - self.targeted_enemy_y < self.targeted_enemy.height and
                 -self.targeted_enemy.width < self.x - self.targeted_enemy_x < self.targeted_enemy.height):
                 self.targeted_enemy.hp -= self.tower.attack
-                if (self.targeted_enemy.hp <= 0):
+                if (self.targeted_enemy.hp <= 0 and self.targeted_enemy.is_alive):
+                    # print('killing!')
                     self.tower.targeted_enemy = None
                     self.game.player.gold += self.targeted_enemy.bounty
                     self.targeted_enemy.die()

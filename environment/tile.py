@@ -1,8 +1,7 @@
 import pygame
 import math
 
-SCREEN_WIDTH = 1000
-SCREEN_HEIGHT = 800
+from settings import SCREEN_HEIGHT, SCREEN_WIDTH
 
 
 class Tile():
@@ -36,6 +35,6 @@ class GroundTile(Tile):
         Tile.__init__(self, mapp, x, y)
 
     def render(self):
-        pygame.draw.rect(self.map.game.screen, (0, 0, 0), (self.x, self.y, self.width, self.height))
+        pygame.draw.rect(self.map.game.screen, (255, 222, 173), (self.x, self.y, self.width, self.height))
 
         pass

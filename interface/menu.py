@@ -23,13 +23,12 @@ class Menu():
 
 
     def render(self):
-
-
-        pygame.draw.rect(self.game.screen, (255, 255, 255), (self.x, self.y, self.width, self.height))
-        for button in self.buttons:
-            button.render()
-        textsurface = myfont2.render(f'round {self.game.round.level}', False, (0, 0, 0))
-        self.game.screen.blit(textsurface,(self.x + math.floor(self.width / 2), self.y ))
+        pass
+        # pygame.draw.rect(self.game.screen, (255, 255, 255), (self.x, self.y, self.width, self.height))
+        # for button in self.buttons:
+        #     button.render()
+        # textsurface = myfont2.render(f'round {self.game.round.level}', False, (0, 0, 0))
+        # self.game.screen.blit(textsurface,(self.x + math.floor(self.width / 2), self.y ))
 
 
     def handle_mouse_down(self, x, y):
@@ -54,9 +53,10 @@ class StartButton():
 
 
     def render(self):
-        pygame.draw.rect(self.game.screen, (0, 255, 0), (self.x, self.y, self.width, self.height))
-        textsurface = myfont.render('Start', False, (0, 0, 0))
-        self.game.screen.blit(textsurface,(self.x,self.y))
+        pass
+        # pygame.draw.rect(self.game.screen, (0, 255, 0), (self.x, self.y, self.width, self.height))
+        # textsurface = myfont.render('Start', False, (0, 0, 0))
+        # self.game.screen.blit(textsurface,(self.x,self.y))
 
     def handle_mouse_down(self, x, y):
         if ( x <= self.x + self.width and x >= self.x and

@@ -26,6 +26,8 @@ class Enemy():
         self.icon = icon
 
     def die(self):
+        if (not self.is_alive):
+            return
         self.is_alive = False
         try:
             self.round.enemies.remove(self)
