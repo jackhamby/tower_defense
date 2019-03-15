@@ -143,22 +143,30 @@ class TowerIcon():
     def render(self, x, y):
         self.x = x
         self.y = y
+        margin = math.floor(self.height * .05)
         rect_width = self.tower.width + math.floor(self.tower.width * 0.7)
         rect_height = self.tower.height + math.floor(self.tower.height * 0.25)
+        price_width = rect_width
+        price_height = math.floor(rect_height * .3)
         tower_x = self.x + math.floor(rect_width/2) - math.floor(self.tower.width/2)
         tower_y = self.y + math.floor(rect_height/2) - math.floor(self.tower.height/2)
 
-
-        # s = pygame.Surface((1000,750))  # the size of your rect
-        # s.set_alpha(128)                # alpha level
-        # s.fill((255,255,255))           # this fills the entire surface
-        # windowSurface.blit(s, (0,0))    # (0,0) are the top-left coordinates
-
+        # Draw dithered background
         s = pygame.Surface((rect_width, rect_height))
         s.set_alpha(128)
         s.fill((10, 10, 10))
         self.game.screen.blit(s, (self.x, self.y))
-        # pygame.draw.rect(self.game.screen, (10, 10, 10, 100), (self.x, self.y, rect_width, rect_height))
+
+        # Draw dithered background and price
+        s2 = pygame.Surface((price_width, price_height))
+        s2.set_alpha(128)
+        s2.fill((10, 10, 10))
+        self.game.screen.blit(s2, (self.x, self.y + rect_height + margin))
+        textsurface = myfont.render(f'${self.tower.price}', False, (0, 0, 0))
+        self.game.screen.blit(textsurface,(self.x, (self.y + rect_height)))
+
+
+        # Draw tower icon
         self.game.screen.blit(self.tower.icon, (tower_x, tower_y))
 
         # self.game.screen.blit(self.tower.icon, (self.x + math.floor(rect_width/4), self.y ))

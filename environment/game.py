@@ -20,8 +20,10 @@ class Game():
         self.interface_components = [TowerSelect(self), Menu(self), PlayerDisplay(self), TowerDetail(self)]
         self.round = Round(self, 1)
         self.player = Player(self)
+        self.clock = pygame.time.Clock()
     
     def start(self):
+
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -52,6 +54,8 @@ class Game():
             if (self.round.is_started and len(self.round.enemy_pool) == 0 and len(self.round.enemies) == 0):
                 self.round.stop()
             pygame.display.flip()
+            self.clock.tick(360)
+
 
     def render(self):
         self.map.render()
@@ -100,7 +104,7 @@ class Round():
 
     def get_enemy_pool(self, level):
         if (level == 1):
-            return [Kobold(self) for i in range(5)]
+            return [Kobold(self) for i in range(4)]
         elif(level == 2):
             return [Kobold(self) for i in range(8)]
         elif(level == 3):

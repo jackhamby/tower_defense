@@ -29,7 +29,7 @@ icon = pygame.transform.scale( pygame.image.load("images/magic_tower1.png"), (25
 
 
 class MagicTower(Tower):
-    price = 2
+    price = 4
     icon = icon
     base_icon_path = "magic_tower"
 

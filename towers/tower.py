@@ -149,6 +149,8 @@ class Projectile():
                     self.game.player.gold += self.targeted_enemy.bounty
                     self.targeted_enemy.die()
                 self.die()
+            else:
+                print("stuck or flying")
  
             pygame.draw.rect(self.game.screen, (0, 0, 255), (self.x, self.y, self.width, self.height))
 
