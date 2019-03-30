@@ -1,14 +1,13 @@
 
 
 import sys, pygame, math
+from settings import SCREEN_WIDTH, SCREEN_HEIGHT
 from environment import Game
 
-SCREEN_WIDTH = 1000
-SCREEN_HEIGHT = 800
+game = Game()
 
 def run():
 
-    game = Game()
     game.start()
 
 

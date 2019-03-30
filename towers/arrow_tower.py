@@ -1,6 +1,8 @@
-from settings import SCREEN_WIDTH, SCREEN_HEIGHT
 from .tower import Tower
+from projectiles import Arrow
 import pygame, math
+from settings import arrow_tower_width, arrow_tower_height, arrow_tower_icon
+
 
 
 upgrade_definition_1 = {
@@ -29,37 +31,27 @@ updage_definition_3 = {
 
 
 class ArrowTower(Tower):
-    price = 2
-    width = math.floor(SCREEN_WIDTH * .025)
-    height = math.floor(SCREEN_HEIGHT * .05)
-    icon = pygame.transform.scale( pygame.image.load("images/arrow_tower1.png"), (width, height))
+    price = 4
+    width = arrow_tower_width
+    height = arrow_tower_height
+    icon = arrow_tower_icon
     base_icon_path = "arrow_tower"
 
 
-    def __init__(self, game, x, y):
-        Tower.__init__(self, game, x, y)
+    def __init__(self, map_, x, y):
+        Tower.__init__(self, map_, x, y, arrow_tower_width, arrow_tower_height, arrow_tower_icon)
 
         # Attributes
         self.range = 200
         self.attack_speed = 50
-        # self.width = 25
-        # self.height = 40
         self.attack = 50
         self.projectile_speed = 20
-        # icon = pygame.transform.scale( pygame.image.load("images/arrow_tower1.png"), (25, 40))
-        # self.icon = icon
-
-        # @property
-        # def icon(self):
-        #     print(self.level)
-        #     return pygame.transform.scale( pygame.image.load(f'images/arrow_tower{self.level}.png'), (25, 40))
-
         self.upgrades = {
             "2" : upgrade_definition_1,
             "3" : updage_definition_2,
             "4" : updage_definition_3
         }
-        # self.upgrades = [upgrade_definition_1, updage_definition_2, updage_definition_3]
+        self.projectile_class = Arrow
 
 
         

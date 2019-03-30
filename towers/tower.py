@@ -1,22 +1,22 @@
-
+import environment
 import pygame
 import math
+from settings import arrow_tower_width, arrow_tower_height, arrow_tower_icon
+from projectiles import Arrow
 
 class Tower():
-    width = 25
-    height = 40
-    base_icon_path = "arrow_tower"
 
-
-    def __init__(self, game, x, y):
-        self.map = game.map
-        self.game = game
-        self.level = 1
-        self.dragging = False
-        self.attack_wait = 0
+    def __init__(self, map_, x, y, width, height, icon):
         self.x = x
         self.y = y
-        # self.map.towers.append(self)
+        self.width = width
+        self.height = height
+        self.icon = icon
+        self.map = map_
+
+        self.level = 1
+        self.is_dragging = False
+        self.attack_wait = 0
         self.targeted_enemy = None
         self.fired_projectiles = []
 
@@ -26,36 +26,48 @@ class Tower():
         self.attack = 25
         self.projectile_speed = 20
         self.upgrades = {}
+        self.projectile_class = Arrow
 
 
 
     def render(self):
-        self.game.screen.blit(self.get_icon(), (self.x, self.y))
+        environment.Game.screen.blit(self.get_icon(), (self.x, self.y))
+        print(self.fired_projectiles)
         for projectile in self.fired_projectiles:
             projectile.render()
     
     def fire_projectile(self):
-        projectile = Projectile(self)
-        self.fired_projectiles.append(projectile)
+        center_x = math.floor(self.x + (self.width / 2))
+        center_y = math.floor(self.y + (self.height / 2))
+        enemy_center_x = math.floor(self.targeted_enemy.x + (self.targeted_enemy.width / 2))
+        enemy_center_y = math.floor(self.targeted_enemy.y + (self.targeted_enemy.height / 2))
+        projectile = self.projectile_class(center_x, center_y, enemy_center_x, enemy_center_y)
+        # self.fired_projectiles.append(projectile)
         self.attack_wait = self.attack_speed
         projectile.fire()
+        projectile.render()
+        # self.fired_projectiles.append(projectile)
+        if (self.targeted_enemy):
+            self.targeted_enemy.take_damage(self.attack)
+
 
     def try_attack(self):
-        if (self.dragging):
+        pass
+        if (self.is_dragging):
             return
         if (self.attack_wait != 0):
             self.attack_wait -= 1
             return
         # No enemy in target, check for new target
         if (not self.targeted_enemy):
-            for enemy in self.game.round.enemies:
+            for enemy in self.map.enemies:
                 dist = math.sqrt(pow(self.x - enemy.x, 2) + pow(self.y - enemy.y, 2))
                 # Check if enenmy is in range
                 if (dist <= self.range):
                     self.targeted_enemy = enemy
                     self.fire_projectile()
                     break
-        # Already has a target which is alive
+        # # Already has a target which is alive
         elif(self.targeted_enemy.is_alive):
             dist = math.sqrt(pow(self.x - self.targeted_enemy.x, 2) + pow(self.y - self.targeted_enemy.y, 2))
             # Check if still in range
@@ -64,20 +76,21 @@ class Tower():
             else:
                 self.fire_projectile()
 
-        # Its current target died
+        # # Its current target died
         else:
             self.targeted_enemy = None
             return 
 
 
     def handle_mouse_down(self, x, y):
+        # pass
         if (x >= self.x and x <= (self.x + self.width)  and
             y >= self.y and y <= (self.y + self.height) and 
-            not self.dragging):
-            tower_detail = self.game.get_tower_detail()
-            if (tower_detail):
-                tower_detail.selected_tower = self
-                tower_detail.set_upgrade_icons()
+            not self.is_dragging):
+            # tower_detail = self.game.get_tower_detail()
+            # if (tower_detail):
+            self.map.tower_detail.selected_tower = self
+            self.map.tower_detail.set_upgrade_icons()
             self.map.selected_tower = self
             
 
@@ -87,7 +100,8 @@ class Tower():
 
 
     def handle_mouse_motion(self, x, y):
-        if (self.dragging):
+        if (self.is_dragging):
+            # print('draggin!')
             self.x, self.y = x, y
 
 
@@ -95,66 +109,6 @@ class Tower():
         if (not img_path):
             img_path = f'{self.base_icon_path}{self.level}.png'
         return pygame.transform.scale( pygame.image.load(f'images/{img_path}'), (self.width, self.height))
-
-
-
-
-
-
-class Projectile():
-
-    def __init__(self, tower):
-        self.tower = tower
-        self.game = tower.game
-        self.targeted_enemy = tower.targeted_enemy
-        self.x, self.y = tower.x, tower.y
-        self.slope = abs((self.y - self.targeted_enemy.y) / (self.x - self.targeted_enemy.x))
-        self.flying = False
-        self.width = 5
-        self.height = 5
-        self.speed = self.tower.projectile_speed
-        self.targeted_enemy_x, self.targeted_enemy_y = tower.targeted_enemy.x, tower.targeted_enemy.y
-
-    def fire(self):
-        self.flying = True
-
-    def die(self):
-        self.flying = False
-        try:
-            self.tower.fired_projectiles.remove(self)
-        except:
-            print('failed to delete projectile')
-
-    def render(self):
-        if (self.flying):
-            if (self.x <= self.targeted_enemy_x):
-                self.x += (1 * self.speed)
-                
-
-            elif (self.x >= self.targeted_enemy_x):
-                self.x -= (1 * self.speed)
-
-            if (self.y <= self.targeted_enemy_y):
-                self.y += (self.speed * self.slope)
-
-            elif (self.y >= self.targeted_enemy_y):
-                self.y -= (self.speed * self.slope)
-
-            if ( -self.targeted_enemy.height < self.y - self.targeted_enemy_y < self.targeted_enemy.height and
-                -self.targeted_enemy.width < self.x - self.targeted_enemy_x < self.targeted_enemy.height):
-                self.targeted_enemy.hp -= self.tower.attack
-                if (self.targeted_enemy.hp <= 0 and self.targeted_enemy.is_alive):
-                    # print('killing!')
-                    self.tower.targeted_enemy = None
-                    self.game.player.gold += self.targeted_enemy.bounty
-                    self.targeted_enemy.die()
-                self.die()
-            else:
-                print("stuck or flying")
- 
-            pygame.draw.rect(self.game.screen, (0, 0, 255), (self.x, self.y, self.width, self.height))
-
-
 
 
 
