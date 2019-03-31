@@ -7,21 +7,21 @@ from settings import arrow_tower_width, arrow_tower_height, arrow_tower_icon
 
 upgrade_definition_1 = {
     "level" : '2',
-    "price" : 2,
+    "price" : 6,
     "attack_speed" : 40,
     "range" : 250,
     "attack" : 60
 }
 
 updage_definition_2 = {
-    "price" : 7,
+    "price" : 8,
     "attack_speed" : 30,
     "range" : 275,
     "attack" : 80,
     "level" : '3'
 }
 updage_definition_3 = {
-    "price" : 15,
+    "price" : 10,
     "attack_speed" : 20,
     "range" : 300,
     "attack" : 90,

@@ -1,5 +1,5 @@
 import pygame
-from enemies import KingKobold, Kobold
+from enemies import KingKobold, Kobold, Knight, Goblin
 from threading import Thread
 from time import sleep
 
@@ -25,23 +25,27 @@ class Round():
         print('stop round')
 
     def spawn_enemies(self):
+        # print(self.enemy_pool)
         while(len(self.enemy_pool) > 0):
             enemy = self.enemy_pool.pop()
+            # print(enemy)
             self.map.enemies.append(enemy)
-            enemy.spawn()
-            sleep(1.0)
+            # print(enemy)
+            enemy.spawn() 
+            sleep(.5)
 
     def get_enemy_pool(self, level):
         if (level == 1):
-            return [Kobold(self.map) for i in range(1)]
+            return [Kobold(self.map) for i in range(6)] 
         elif(level == 2):
-            return [Kobold(self.map) for i in range(8)]
+            return [Kobold(self.map) for i in range(8)] + [Knight(self.map) for i in range(3)] + [Goblin(self.map) for i in range(1)]
         elif(level == 3):
-            return [KingKobold(self.map)]
+            return [KingKobold(self.map)] + [Kobold(self.map) for i in range(8)] + [Goblin(self.map) for i in range(2)]
         elif(level == 4): 
-            return [KingKobold(self.map)] + [Kobold(self.map) for i in range(4)] + [KingKobold(self.map)]
+            return [KingKobold(self.map)] + [Knight(self.map) for i in range(10)] + [Kobold(self.map) for i in range(4)] + [KingKobold(self.map)]+ [Goblin(self.map) for i in range(4)]
         elif(level == 5):
-            return [KingKobold(self.map) for i in range(6) ]
+            return  [KingKobold(self.map) for i in range(6) ] + [Knight(self.map) for i in range(15)] + [Goblin(self.map) for i in range(7)]
+
         else:
             return []
 

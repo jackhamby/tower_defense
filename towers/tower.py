@@ -32,7 +32,6 @@ class Tower():
 
     def render(self):
         environment.Game.screen.blit(self.get_icon(), (self.x, self.y))
-        print(self.fired_projectiles)
         for projectile in self.fired_projectiles:
             projectile.render()
     
@@ -41,14 +40,14 @@ class Tower():
         center_y = math.floor(self.y + (self.height / 2))
         enemy_center_x = math.floor(self.targeted_enemy.x + (self.targeted_enemy.width / 2))
         enemy_center_y = math.floor(self.targeted_enemy.y + (self.targeted_enemy.height / 2))
-        projectile = self.projectile_class(center_x, center_y, enemy_center_x, enemy_center_y)
+        projectile = self.projectile_class(self.map, center_x, center_y, enemy_center_x, enemy_center_y, self.attack)
         # self.fired_projectiles.append(projectile)
         self.attack_wait = self.attack_speed
-        projectile.fire()
+        projectile.fire(self.targeted_enemy)
         projectile.render()
         # self.fired_projectiles.append(projectile)
-        if (self.targeted_enemy):
-            self.targeted_enemy.take_damage(self.attack)
+        # if (self.targeted_enemy):
+        #     self.targeted_enemy.take_damage(self.attack)
 
 
     def try_attack(self):

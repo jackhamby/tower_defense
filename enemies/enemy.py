@@ -55,7 +55,7 @@ class Enemy():
         self.x = self.current_tile.x + math.floor(self.current_tile.width / 2) - math.floor(self.width / 2)
         self.y = self.current_tile.y + self.current_tile.height - math.floor(self.height / 2)
         self.is_alive = True
-        print('spawned')
+        # print('spawned')
 
 
     def follow_path(self):

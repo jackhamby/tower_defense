@@ -71,16 +71,25 @@ magic_tower_width = math.floor(SCREEN_WIDTH * .025)
 magic_tower_height = math.floor(SCREEN_HEIGHT * .05)
 magic_tower_icon = pygame.transform.scale( pygame.image.load("images/magic_tower1.png"), (magic_tower_width, magic_tower_height))
 
-
+bomb_tower_width = math.floor(SCREEN_WIDTH * .025)
+bomb_tower_height = math.floor(SCREEN_HEIGHT * .05)
+bomb_tower_icon = pygame.transform.scale( pygame.image.load("images/bomb_tower1.png"), (bomb_tower_width, bomb_tower_height))
 
 
 # =========== Enemy sizes / icons ==============================================================================
 # ==============================================================================================================
 kobold_width = 20
 kobold_height = 20
-kobold_icon =icon = pygame.transform.scale( pygame.image.load("images/kobold.png"), (kobold_width, kobold_height))
+kobold_icon = pygame.transform.scale( pygame.image.load("images/kobold.png"), (kobold_width, kobold_height))
 
 king_kobold_width = 40
 king_kobold_height = 40
-king_kobold_icon =icon = pygame.transform.scale( pygame.image.load("images/kobold_king.png"), (king_kobold_width, king_kobold_height))
+king_kobold_icon = pygame.transform.scale( pygame.image.load("images/kobold_king.png"), (king_kobold_width, king_kobold_height))
 
+knight_width = 30
+knight_height = 30
+knight_icon = pygame.transform.scale( pygame.image.load("images/knight.png"), (knight_width, knight_height))
+
+goblin_width = 30
+goblin_height = 30
+goblin_icon = pygame.transform.scale( pygame.image.load("images/goblin.png"), (goblin_width, goblin_height))

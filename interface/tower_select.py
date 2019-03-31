@@ -1,5 +1,5 @@
 import pygame, math
-from towers import ArrowTower, MagicTower, Tower
+from towers import ArrowTower, MagicTower, BombTower, Tower
 from .interface import Interface
 from .go_button import GoButton
 from .data_display import DataDisplay
@@ -21,7 +21,7 @@ class TowerSelect(Interface):
         # self.y = SCREEN_HEIGHT - self.height
         self.screen = environment.Game.screen
         self.available_attributes = ["gold", "health"]
-        self.available_towers = [ArrowTower, MagicTower]
+        self.available_towers = [ArrowTower, MagicTower, BombTower]
 
         # Main models to render
         self.data_displays = []
@@ -41,15 +41,18 @@ class TowerSelect(Interface):
         count = 0
         for tower_type in self.available_towers:
             tower_icon = TowerIcon(self.map, tower_type, x, y)
+            # print(f'rendering @ {x}, {y}')
             self.tower_icons.append(tower_icon)
             x += (tower_icon.width + tower_select_margin)
             count += 1
             if (count % 2 == 0):
+                x = self.x + tower_select_margin
                 y += (tower_icon.height + tower_select_margin)
+        
 
         # Load go button model
         x = self.x + tower_select_margin
-        y = y + tower_select_margin
+        y = y + tower_icon.height + tower_select_margin
         self.go_button = GoButton(self.map, x, y)
 
 

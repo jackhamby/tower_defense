@@ -20,7 +20,7 @@ class DataDisplay(Interface):
         # pygame.transform.scale(self.icon, (self.width, self.height))
         self.screen.blit(self.icon, (self.x, self.y))
 
-        textsurface = myfont.render(f'${getattr(environment.Game.player, self.attribute)}', False, (0, 0, 0))
+        textsurface = myfont.render(f'{getattr(environment.Game.player, self.attribute)}', False, (0, 0, 0))
         self.screen.blit(textsurface,(self.x + math.floor(self.width * .3), self.y + math.floor(self.height * .1)))
     
         # Render data 
