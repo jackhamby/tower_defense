@@ -75,6 +75,10 @@ bomb_tower_width = math.floor(SCREEN_WIDTH * .025)
 bomb_tower_height = math.floor(SCREEN_HEIGHT * .05)
 bomb_tower_icon = pygame.transform.scale( pygame.image.load("images/bomb_tower1.png"), (bomb_tower_width, bomb_tower_height))
 
+slime_tower_width = math.floor(SCREEN_WIDTH * .025)
+slime_tower_height = math.floor(SCREEN_HEIGHT * .05)
+slime_tower_icon = pygame.transform.scale( pygame.image.load("images/slime_tower1.png"), (slime_tower_width, slime_tower_height))
+
 
 # =========== Enemy sizes / icons ==============================================================================
 # ==============================================================================================================

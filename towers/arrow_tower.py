@@ -14,14 +14,14 @@ upgrade_definition_1 = {
 }
 
 updage_definition_2 = {
-    "price" : 8,
+    "price" : 12,
     "attack_speed" : 30,
     "range" : 275,
     "attack" : 80,
     "level" : '3'
 }
 updage_definition_3 = {
-    "price" : 10,
+    "price" : 24,
     "attack_speed" : 20,
     "range" : 300,
     "attack" : 90,
