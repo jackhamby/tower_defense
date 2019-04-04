@@ -27,6 +27,7 @@ class TowerSelect(Interface):
         self.data_displays = []
         self.tower_icons = []
         self.go_button = None
+        self.tooltip = None
 
         # Load player display models
         x, y  = self.x + tower_select_margin, self.y + tower_select_margin
@@ -71,6 +72,8 @@ class TowerSelect(Interface):
         for tower_icon in self.tower_icons:
             tower_icon.render()
 
+        if (self.tooltip):
+            self.tooltip.render()
         self.go_button.render()
 
 
@@ -80,6 +83,9 @@ class TowerSelect(Interface):
             icon.handle_mouse_down(x, y)
         self.go_button.handle_mouse_down(x, y)
 
+    def handle_mouse_motion(self, x, y):
+        for icon in self.tower_icons:
+            icon.handle_mouse_motion(x, y)
 
     # def handle_mouse_up(self, x, y):
     #     for icon in self.tower_icons:

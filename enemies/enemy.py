@@ -19,6 +19,7 @@ class Enemy():
 
         self.max_speed = 5
         self.speed = self.max_speed
+        self.effects = []
         self.is_alive = False
         self.damage = 2
         self.max_hp = 50
@@ -147,3 +148,5 @@ class Enemy():
         if (self.is_alive):
             pygame.draw.rect(environment.Game.screen, (0, 255, 0), (self.x, self.y - 10, self.width * (self.hp/self.max_hp), 5))
             environment.Game.screen.blit(self.icon, (self.x, self.y))
+            for effect in self.effects:
+                effect.tick()

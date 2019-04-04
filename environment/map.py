@@ -160,6 +160,8 @@ class Map():
             tower.handle_mouse_up(x, y)
 
     def handle_mouse_motion(self, x, y):
+        self.tower_detail.handle_mouse_motion(x, y)
+        self.tower_select.handle_mouse_motion(x, y)
         for tower in self.towers:
             tower.handle_mouse_motion(x, y)
 

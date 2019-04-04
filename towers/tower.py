@@ -5,6 +5,9 @@ from settings import arrow_tower_width, arrow_tower_height, arrow_tower_icon
 from projectiles import Arrow
 
 class Tower():
+    description = '''
+        a tower
+    '''
 
     def __init__(self, map_, x, y, width, height, icon):
         self.x = x
@@ -21,6 +24,7 @@ class Tower():
         self.fired_projectiles = []
 
         # Default attributes
+
         self.range = 200
         self.attack_speed = 80
         self.attack = 25
@@ -51,7 +55,6 @@ class Tower():
 
 
     def try_attack(self):
-        pass
         if (self.is_dragging):
             return
         if (self.attack_wait != 0):

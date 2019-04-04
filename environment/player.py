@@ -8,7 +8,7 @@ class Player():
     def __init__(self):
 
         # Attributes
-        self.gold = 10
+        self.gold = 100
         self.health = 100
         
     def purchase(self, price):

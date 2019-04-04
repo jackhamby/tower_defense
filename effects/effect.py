@@ -8,3 +8,6 @@ class Effect():
 
     def apply(self, enemy):
         pass
+
+    def tick(self):
+        pass

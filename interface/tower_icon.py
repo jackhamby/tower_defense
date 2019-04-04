@@ -1,4 +1,5 @@
 import environment
+from .tooltip import ToolTip
 from .interface import Interface
 from settings import tower_icon_height, tower_icon_width
 import pygame, math
@@ -17,6 +18,7 @@ class TowerIcon(Interface):
         Interface.__init__(self, map_, x, y, tower_icon_width, tower_icon_height, self.tower.icon)
         self.screen = environment.Game.screen
         self.selected_tower = None
+
 
 
     def render(self):
@@ -53,6 +55,13 @@ class TowerIcon(Interface):
         # print('handling mouse down in tower_icon')
         if (self.selected_tower):
             # print('setting down!')
+            current_tile = self.map.get_tile(x, y)
+            right_tile = self.map.get_tile(x + self.selected_tower.width, y)
+            below_tile = self.map.get_tile(x, y + self.selected_tower.height)
+            if (type(current_tile) == environment.PathTile or
+                type(right_tile) == environment.PathTile or 
+                type(below_tile) == environment.PathTile):
+                return
             self.selected_tower.x, self.selected_tower.y = x, y
             self.selected_tower.is_dragging = False
             self.selected_tower = None
@@ -65,6 +74,17 @@ class TowerIcon(Interface):
                 tower.is_dragging = True
                 self.selected_tower = tower
                 self.map.towers.append(tower)
+
+    def handle_mouse_motion(self, x, y):
+        # print('mouse motion!')
+        if ( x <= self.x + self.width and x >= self.x and
+             y <= self.y + self.height and y >= self.y):
+             print('hovering on me!')
+             print(self.tower.description)
+             tooltip = ToolTip(self.map, self.x - self.width, self.y)
+             self.map.tower_select.tooltip = tooltip
+            #  tooltip.render()
+
 
 
     # def handle_mouse_up(self, x, y):

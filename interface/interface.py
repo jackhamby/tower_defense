@@ -19,3 +19,6 @@ class Interface():
     def handle_mouse_up(self, x, y):
         pass
 
+    def handle_mouse_motion(self, x, y):
+        pass
+

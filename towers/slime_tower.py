@@ -1,7 +1,9 @@
 from .tower import Tower
 from settings import slime_tower_width, slime_tower_height, slime_tower_icon
-from projectiles import Arrow
+from projectiles import SlimeBall
+from effects import Slow
 import pygame
+import math
 
 
 upgrade_definition_1 = {
@@ -49,7 +51,31 @@ class SlimeTower(Tower):
             "3" : updage_definition_2,
             "4" : updage_definition_3
         }
-        self.projectile_class = Arrow
+        self.projectile_class = SlimeBall
 
 
-        
+    def try_attack(self):
+        if (self.is_dragging):
+            return
+        if (self.attack_wait != 0):
+            self.attack_wait -= 1
+            return
+        # No enemy in target, check for new target
+        if (not self.targeted_enemy):
+            for i, enemy in enumerate(self.map.enemies):
+                dist = math.sqrt(pow(self.x - enemy.x, 2) + pow(self.y - enemy.y, 2))
+                # Check if enenmy is in range
+                if (dist <= self.range):
+                    if (self.check_if_slowed(enemy) and i + 1 != len(self.map.enemies)): # Check if slowed or last enemy not slowed
+                        continue
+                    self.targeted_enemy = enemy
+                    self.fire_projectile()
+                    self.targeted_enemy = None
+                    break
+
+    def check_if_slowed(self, enemy):       
+        for effect in enemy.effects:  # Skip already slowed enemies
+            if (type(effect) == Slow):
+                return True
+        return False
+                

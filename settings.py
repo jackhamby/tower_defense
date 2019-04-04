@@ -56,6 +56,10 @@ go_button_width = math.floor(tower_select_width * .90)
 go_button_height = math.floor(tower_select_height * .1)
 go_button_icon = pygame.transform.scale( pygame.image.load('images/start_button.png'), (go_button_width, go_button_height))
 
+tooltip_width = math.floor(tower_select_width)
+tooltip_height = math.floor(tower_select_height * .1)
+tooltip_icon = pygame.transform.scale( pygame.image.load('images/tooltip.png'), (tooltip_width, tooltip_height))
+
 
 
 
