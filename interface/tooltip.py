@@ -16,7 +16,7 @@ class ToolTip(Interface):
         # self.x = x
         # self.y = y
         # pygame.transform.scale(self.icon, (self.width, self.height))
-        self.screen.blit(self.icon, (self.x, self.y))
+        # self.screen.blit(self.icon, (self.x, self.y))
 
     def handle_mouse_down(self, x, y):
         pass
