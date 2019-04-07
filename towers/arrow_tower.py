@@ -36,6 +36,11 @@ class ArrowTower(Tower):
     height = arrow_tower_height
     icon = arrow_tower_icon
     base_icon_path = "arrow_tower"
+    description = '''
+    a simple tower 
+    with medium damage 
+    and medium speed
+    '''
 
 
     def __init__(self, map_, x, y):

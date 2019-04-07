@@ -34,6 +34,10 @@ class MagicTower(Tower):
     height = magic_tower_height
     icon = magic_tower_icon
     base_icon_path = "magic_tower"
+    description = '''
+    a fast shooting,
+    low damage tower
+    '''
 
 
     def __init__(self, map_, x, y):

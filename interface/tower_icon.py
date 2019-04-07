@@ -81,9 +81,8 @@ class TowerIcon(Interface):
              y <= self.y + self.height and y >= self.y):
              print('hovering on me!')
              print(self.tower.description)
-             tooltip = ToolTip(self.map, self.x - self.width, self.y)
+             tooltip = ToolTip(self.map, self.y, self.tower.description)
              self.map.tower_select.tooltip = tooltip
-            #  tooltip.render()
 
 
 

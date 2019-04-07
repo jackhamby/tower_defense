@@ -36,6 +36,11 @@ class SlimeTower(Tower):
     height = slime_tower_height
     icon = slime_tower_icon
     base_icon_path = "slime_tower"
+    description = '''
+    a fast shooting,
+    low damage tower
+    that slows its enemies
+    '''
 
 
     def __init__(self, map_, x, y):

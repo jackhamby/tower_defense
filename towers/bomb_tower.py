@@ -34,6 +34,12 @@ class BombTower(Tower):
     height = bomb_tower_height
     icon = bomb_tower_icon
     base_icon_path = "bomb_tower"
+    description = '''
+    a slow firing, 
+    medium damage tower
+    that deals damage 
+    in a radius
+    '''
 
 
     def __init__(self, map_, x, y):
