@@ -67,20 +67,33 @@ class SlimeTower(Tower):
             return
         # No enemy in target, check for new target
         if (not self.targeted_enemy):
-            for i, enemy in enumerate(self.map.enemies):
-                dist = math.sqrt(pow(self.x - enemy.x, 2) + pow(self.y - enemy.y, 2))
-                # Check if enenmy is in range
-                if (dist <= self.range):
-                    if (self.check_if_slowed(enemy) and i + 1 != len(self.map.enemies)): # Check if slowed or last enemy not slowed
-                        continue
+            enemies = self.get_in_range_enemies()
+            if (len(enemies) == 0):
+                return
+            for enemy in enemies:
+                if (self.check_if_slowed(enemy)):
+                    continue
+                else:
                     self.targeted_enemy = enemy
                     self.fire_projectile()
                     self.targeted_enemy = None
-                    break
+                    return
+            self.targeted_enemy = enemies[0]
+            self.fire_projectile()
+            self.targeted_enemy = None
 
     def check_if_slowed(self, enemy):       
         for effect in enemy.effects:  # Skip already slowed enemies
             if (type(effect) == Slow):
                 return True
         return False
+
+    def get_in_range_enemies(self):
+        in_range_enemies = []
+        for i, enemy in enumerate(self.map.enemies):
+            dist = math.sqrt(pow(self.x - enemy.x, 2) + pow(self.y - enemy.y, 2))
+            # Check if enenmy is in range
+            if (dist <= self.range):
+                in_range_enemies.append(enemy)
+        return in_range_enemies
                 

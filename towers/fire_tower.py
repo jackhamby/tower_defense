@@ -61,31 +61,40 @@ class FireTower(Tower):
 
 
         
-
     def try_attack(self):
-            if (self.is_dragging):
+        if (self.is_dragging):
+            return
+        if (self.attack_wait != 0):
+            self.attack_wait -= 1
+            return
+        # No enemy in target, check for new target
+        if (not self.targeted_enemy):
+            enemies = self.get_in_range_enemies()
+            if (len(enemies) == 0):
                 return
-            if (self.attack_wait != 0):
-                self.attack_wait -= 1
-                return
-            # No enemy in target, check for new target
-            if (not self.targeted_enemy):
-                for i, enemy in enumerate(self.map.enemies):
-                    dist = math.sqrt(pow(self.x - enemy.x, 2) + pow(self.y - enemy.y, 2))
-                    # Check if enenmy is in range
-                    if (dist <= self.range):
-                        if (self.check_if_on_fire(enemy) and i + 1 != len(self.map.enemies)): # Check if slowed or last enemy not slowed
-                            continue
-                        self.targeted_enemy = enemy
-                        self.fire_projectile()
-                        self.targeted_enemy = None
-                        break
+            for enemy in enemies:
+                if (self.check_if_on_fire(enemy)):
+                    continue
+                else:
+                    self.targeted_enemy = enemy
+                    self.fire_projectile()
+                    self.targeted_enemy = None
+                    return
+            self.targeted_enemy = enemies[0]
+            self.fire_projectile()
+            self.targeted_enemy = None
 
-
-    
     def check_if_on_fire(self, enemy):       
         for effect in enemy.effects:  # Skip already slowed enemies
             if (type(effect) == Dot):
                 return True
         return False
-                
+
+    def get_in_range_enemies(self):
+        in_range_enemies = []
+        for i, enemy in enumerate(self.map.enemies):
+            dist = math.sqrt(pow(self.x - enemy.x, 2) + pow(self.y - enemy.y, 2))
+            # Check if enenmy is in range
+            if (dist <= self.range):
+                in_range_enemies.append(enemy)
+        return in_range_enemies
