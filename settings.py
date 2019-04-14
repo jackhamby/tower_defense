@@ -56,6 +56,14 @@ go_button_width = math.floor(tower_select_width * .90)
 go_button_height = math.floor(tower_select_height * .1)
 go_button_icon = pygame.transform.scale( pygame.image.load('images/start_button.png'), (go_button_width, go_button_height))
 
+
+sell_button_width = math.floor(tower_select_width * .50)
+sell_button_height = math.floor(tower_select_height * .06)
+sell_button_icon = pygame.transform.scale( pygame.image.load('images/sell_button.png'), (sell_button_width, sell_button_height))
+sell_button_x = tower_select_x - sell_button_width - tower_select_margin
+sell_button_y = tower_detail_y + tower_select_margin
+
+
 tooltip_width = math.floor(tower_select_width) + math.floor(tower_select_width / 2)
 tooltip_height = math.floor(tower_select_height * .2)
 tooltip_icon = pygame.transform.scale( pygame.image.load('images/tooltip.png'), (tooltip_width, tooltip_height))
@@ -83,6 +91,13 @@ bomb_tower_icon = pygame.transform.scale( pygame.image.load("images/bomb_tower1.
 slime_tower_width = math.floor(SCREEN_WIDTH * .025)
 slime_tower_height = math.floor(SCREEN_HEIGHT * .05)
 slime_tower_icon = pygame.transform.scale( pygame.image.load("images/slime_tower1.png"), (slime_tower_width, slime_tower_height))
+
+fire_tower_width = math.floor(SCREEN_WIDTH * .025)
+fire_tower_height = math.floor(SCREEN_HEIGHT * .05)
+fire_tower_icon = pygame.transform.scale( pygame.image.load("images/fire_tower1.png"), (fire_tower_width, fire_tower_height))
+
+
+
 
 
 # =========== Enemy sizes / icons ==============================================================================

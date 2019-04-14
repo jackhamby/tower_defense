@@ -52,16 +52,20 @@ class TowerIcon(Interface):
 
 
     def handle_mouse_down(self, x, y):
-        # print('handling mouse down in tower_icon')
         if (self.selected_tower):
-            # print('setting down!')
             current_tile = self.map.get_tile(x, y)
             right_tile = self.map.get_tile(x + self.selected_tower.width, y)
             below_tile = self.map.get_tile(x, y + self.selected_tower.height)
+
+            # Make sure tower doesnt touch path tile
             if (type(current_tile) == environment.PathTile or
                 type(right_tile) == environment.PathTile or 
                 type(below_tile) == environment.PathTile):
                 return
+            # Make sure tower isn't behind tower_select
+            if (self.selected_tower.x >= self.map.tower_select.x or
+                self.selected_tower.y >= self.map.tower_detail.y):
+                return 
             self.selected_tower.x, self.selected_tower.y = x, y
             self.selected_tower.is_dragging = False
             self.selected_tower = None
@@ -76,13 +80,16 @@ class TowerIcon(Interface):
                 self.map.towers.append(tower)
 
     def handle_mouse_motion(self, x, y):
-        # print('mouse motion!')
         if ( x <= self.x + self.width and x >= self.x and
              y <= self.y + self.height and y >= self.y):
-             print('hovering on me!')
-             print(self.tower.description)
              tooltip = ToolTip(self.map, self.y, self.tower.description)
              self.map.tower_select.tooltip = tooltip
+        elif(self.map.tower_select.tooltip and
+             self.map.tower_select.tooltip.text == self.tower.description):
+            self.map.tower_select.tooltip = None
+
+        
+
 
 
 

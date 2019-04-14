@@ -1,5 +1,5 @@
 import pygame, math
-from towers import ArrowTower, MagicTower, BombTower, SlimeTower, Tower
+from towers import ArrowTower, MagicTower, BombTower, SlimeTower, FireTower, Tower
 from .interface import Interface
 from .go_button import GoButton
 from .data_display import DataDisplay
@@ -21,7 +21,7 @@ class TowerSelect(Interface):
         # self.y = SCREEN_HEIGHT - self.height
         self.screen = environment.Game.screen
         self.available_attributes = ["gold", "health"]
-        self.available_towers = [ArrowTower, MagicTower, BombTower, SlimeTower]
+        self.available_towers = [ArrowTower, MagicTower, BombTower, SlimeTower, FireTower]
 
         # Main models to render
         self.data_displays = []

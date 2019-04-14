@@ -43,7 +43,6 @@ class Enemy():
             if (self.hp <= 0):
                 self.die()
                 environment.Game.player.gold += self.bounty
-                # self.fired_projectiles.remove(projectile)
 
 
     def attack(self):

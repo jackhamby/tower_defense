@@ -12,6 +12,7 @@ SCREEN_HEIGHT = 800
 enemy_count = 10
 
 class Game():
+    ''' main pygame loop, wrapper for main game, includes Map and Player '''
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     player = Player()
@@ -20,16 +21,13 @@ class Game():
         # Map
         self.map = Map()
 
-        # Current Round
-        # self.round = Round(self, 1)
-
         # Player
         self.player = Player()
 
         self.clock = pygame.time.Clock()
     
     def start(self):
-
+        ''' start main pygame loop, render game to screen'''
         while True:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -55,6 +53,7 @@ class Game():
 
 
     def render(self):
+        ''' render Map to the screen '''
         self.map.render()
 
 

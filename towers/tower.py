@@ -89,16 +89,15 @@ class Tower():
         if (x >= self.x and x <= (self.x + self.width)  and
             y >= self.y and y <= (self.y + self.height) and 
             not self.is_dragging):
-            # tower_detail = self.game.get_tower_detail()
-            # if (tower_detail):
-            self.map.tower_detail.selected_tower = self
-            self.map.tower_detail.set_upgrade_icons()
             self.map.selected_tower = self
+            self.map.tower_detail.set_upgrade_icons()
             
 
     def handle_mouse_up(self, x, y):
         pass
 
+    def remove(self):
+        self.map.towers.remove(self)
 
 
     def handle_mouse_motion(self, x, y):

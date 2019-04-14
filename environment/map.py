@@ -55,6 +55,11 @@ e00000011
 class Map():
 
     def __init__(self, layout=DEFAULT_LAYOUT):
+        ''' contains main sprite objects including enemies, towers
+            and interface components. Keeps track of current Round
+            the player is on. Creates board layout based on string 
+            defined board template.
+        '''
         self.screen = environment.Game.screen
         self.width = -1
         self.height = -1
@@ -66,7 +71,6 @@ class Map():
         self.towers = []
 
         # Interface
-        # self.interface_components = [TowerDetail(self), TowerSelect(self)]
         self.tower_detail = TowerDetail(self)
         self.tower_select = TowerSelect(self)
 
@@ -84,6 +88,7 @@ class Map():
 
     
     def load_layout(self, layout):
+        ''' creates a series of Tiles based on the layout template'''
         self.tiles = []
         layout = layout.split('\n')
         self.width, self.height = [int(x) for x in layout.pop(0).split(' ')]
@@ -105,12 +110,9 @@ class Map():
                     map_row.append(self.ending_tile) # Ending tile        
             self.tiles.append(map_row)
 
-        # print('loaded layout')
-        # print(self.starting_tile)
-
-
 
     def get_tile(self, x, y):
+        ''' get and return the Tile found at pos(x, y)'''
         tile = None
         tile_width = math.floor(SCREEN_WIDTH / self.width)
         tile_height = math.floor(SCREEN_HEIGHT / self.height)
@@ -123,6 +125,7 @@ class Map():
 
 
     def render(self):
+        ''' render main came components to screen '''
         for row in self.tiles:
             for tile in row:
                 tile.render()
@@ -144,22 +147,21 @@ class Map():
             tower.try_attack()
 
     def handle_mouse_down(self, x, y):
-        # for component in self.interface_components:
-        #     component.handle_mouse_down(x, y)
+        ''' handle mouse down event and pass event to sprite objects '''
         self.tower_detail.handle_mouse_down(x, y)
         self.tower_select.handle_mouse_down(x, y)
         for tower in self.towers:
             tower.handle_mouse_down(x, y)
 
     def handle_mouse_up(self, x, y):
-        # for component in self.interface_components:
-        #     component.handle_mouse_up(x, y)
+        ''' handle mouse up event and pass to sprite objects '''
         self.tower_detail.handle_mouse_up(x, y)
         self.tower_select.handle_mouse_up(x, y)
         for tower in self.towers:
             tower.handle_mouse_up(x, y)
 
     def handle_mouse_motion(self, x, y):
+        ''' handle mouse motion event and pass to sprite objects '''
         self.tower_detail.handle_mouse_motion(x, y)
         self.tower_select.handle_mouse_motion(x, y)
         for tower in self.towers:

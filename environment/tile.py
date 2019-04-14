@@ -8,8 +8,7 @@ class Tile():
     
 
     def __init__(self, width, height, x, y):
-        # self.map = mapp
-        # self.game = mapp.game
+        ''' represents a square on the screen '''
         self.screen = environment.Game.screen
         self.height = height
         self.width = width
@@ -24,15 +23,12 @@ class Tile():
 
 
 class PathTile(Tile):
+    ''' Tile by which enemies can walk '''
 
     def __init__(self,  width, height, x, y, is_start=False, is_end=False):
         Tile.__init__(self, width, height, x, y)
         self.is_start = is_start
         self.is_end = is_end
-        # if (is_end):
-        #     print(f'ending tile! {x}, {y}')
-        # if (is_start):
-        #     print(f'starting tile! {x}, {y}')
 
 
     def render(self):
@@ -40,6 +36,7 @@ class PathTile(Tile):
 
 
 class GroundTile(Tile):
+    ''' Tile on which players can build towers '''
 
     def __init__(self, width, height, x, y):
         Tile.__init__(self, width, height, x, y)
@@ -48,5 +45,4 @@ class GroundTile(Tile):
 
 
     def render(self):
-        # pygame.draw.rect(self.map.game.screen, (255, 222, 173), (self.x, self.y, self.width, self.height))
         self.screen.blit(self.icon, (self.x, self.y))
