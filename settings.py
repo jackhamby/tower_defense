@@ -97,6 +97,9 @@ fire_tower_height = math.floor(SCREEN_HEIGHT * .05)
 fire_tower_icon = pygame.transform.scale( pygame.image.load("images/fire_tower1.png"), (fire_tower_width, fire_tower_height))
 
 
+fruit_farm_width = math.floor(SCREEN_WIDTH * .025)
+fruit_farm_height = math.floor(SCREEN_HEIGHT * .05)
+fruit_farm_icon = pygame.transform.scale( pygame.image.load("images/fruit_farm1.png"), (fruit_farm_width, fruit_farm_height))
 
 
 

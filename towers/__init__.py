@@ -4,3 +4,4 @@ from .magic_tower import MagicTower
 from .bomb_tower import BombTower
 from .slime_tower import SlimeTower
 from .fire_tower import FireTower
+from .fruit_farm import FruitFarm
