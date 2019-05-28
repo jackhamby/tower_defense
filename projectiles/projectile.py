@@ -21,8 +21,6 @@ class Projectile():
         for effect in self.effects:
             effect.apply(enemy)
 
-
-
     def die(self):
         self.flying = False
 

@@ -51,6 +51,9 @@ e00000011
 # SCREEN_WIDTH = 1000
 # SCREEN_HEIGHT = 800
 
+pygame.font.init()
+myfont = pygame.font.SysFont('Comic Sans MS', 15)
+
 
 class Map():
 
@@ -70,10 +73,6 @@ class Map():
         # Towers
         self.towers = []
 
-        # Interface
-        self.tower_detail = TowerDetail(self)
-        self.tower_select = TowerSelect(self)
-
         # Enemies 
         self.enemies = []
 
@@ -82,6 +81,11 @@ class Map():
 
         # Set first round
         self.round = Round(self, 1)
+
+        # Interface
+        self.tower_detail = TowerDetail(self)
+        self.tower_select = TowerSelect(self)
+
 
         # Initialize board with tiles using layout template
         self.load_layout(layout)
@@ -125,7 +129,7 @@ class Map():
 
 
     def render(self):
-        ''' render main came components to screen '''
+        ''' render main game components to screen '''
         for row in self.tiles:
             for tile in row:
                 tile.render()
@@ -145,6 +149,9 @@ class Map():
 
         for tower in self.towers:
             tower.try_attack()
+
+        # textsurface = myfont.render(f'start', False, (0, 0, 0))
+        # environment.Game.screen.blit(textsurface,(self.starting_tile.x + math.floor(self.starting_tile.width * .3), self.starting_tile.y + math.floor(self.starting_tile.height * .1)))
 
     def handle_mouse_down(self, x, y):
         ''' handle mouse down event and pass event to sprite objects '''

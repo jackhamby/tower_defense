@@ -1,5 +1,5 @@
 import pygame, math
-from towers import ArrowTower, MagicTower, BombTower, SlimeTower, FireTower, FruitFarm, Tower
+from towers import ArrowTower, MagicTower, BombTower, SlimeTower, FireTower, FruitFarm, BoostTower, Tower
 from .interface import Interface
 from .go_button import GoButton
 from .data_display import DataDisplay
@@ -21,7 +21,7 @@ class TowerSelect(Interface):
         # self.y = SCREEN_HEIGHT - self.height
         self.screen = environment.Game.screen
         self.available_attributes = ["gold", "health"]
-        self.available_towers = [ArrowTower, MagicTower, BombTower, SlimeTower, FireTower, FruitFarm]
+        self.available_towers = [ArrowTower, MagicTower, BombTower, SlimeTower, FireTower, FruitFarm, BoostTower]
 
         # Main models to render
         self.data_displays = []
@@ -71,6 +71,10 @@ class TowerSelect(Interface):
             
         for tower_icon in self.tower_icons:
             tower_icon.render()
+            # if (tower_icon.tower.unlock_level > self.map.round.level):
+            #     tower_icon.render(is_unlocked=False)
+            # else:
+            #     tower_icon.render()
 
         if (self.tooltip):
             self.tooltip.render()

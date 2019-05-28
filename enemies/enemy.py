@@ -16,7 +16,6 @@ class Enemy():
         self.previous_tile = None
         
         # Default Attributes
-
         self.max_speed = 5
         self.speed = self.max_speed
         self.effects = []
@@ -26,6 +25,7 @@ class Enemy():
         self.hp = self.max_hp
         self.bounty = 1
         self.icon = icon
+        self.x, self.y = 0, 0
 
     def die(self):
         if (not self.is_alive):
@@ -39,10 +39,10 @@ class Enemy():
             pass
 
     def take_damage(self, damage):
-            self.hp -= damage
-            if (self.hp <= 0):
-                self.die()
-                environment.Game.player.gold += self.bounty
+        self.hp -= damage
+        if (self.hp <= 0):
+            self.die()
+            environment.Game.player.gold += self.bounty
 
 
     def attack(self):

@@ -5,6 +5,7 @@ from .interface import Interface
 from .tower_icon import TowerIcon
 from .upgrade_button import UpgradeButton
 from .tower_upgrade_icon import TowerUpgradeIcon
+from .tower_detail_display import TowerDetailDisplay
 from .sell_button import SellButton
 import environment
 # Set fonts
@@ -31,6 +32,7 @@ class TowerDetail(Interface):
         self.upgrade_buttons = []
         self.tower_upgrade_icon = TowerUpgradeIcon(self.map, self.map.selected_tower)
         self.sell_button = SellButton(self.map, self.map.selected_tower)
+        self.tower_detail_display = TowerDetailDisplay(self.map, self.map.selected_tower)
 
         upgrade_button_x = self.x + self.tower_upgrade_icon.width + (tower_upgrade_icon_margin * 2)
         upgrade_button_y = self.y + tower_upgrade_icon_margin
@@ -48,6 +50,10 @@ class TowerDetail(Interface):
             self.tower_upgrade_icon.render()
 
             self.sell_button.render()
+
+            self.tower_detail_display.render()
+
+
 
 
         #     x = (self.x + margin + self.tower_icon.width) + (margin * 4)

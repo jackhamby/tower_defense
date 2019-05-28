@@ -12,12 +12,12 @@ class Dot(Effect):
         self.enemy = None
 
     def apply(self, enemy):
-        print('applied dot!')
         self.enemy = enemy
         enemy.effects.append(self)
         
 
     def tick(self):
+        print(self.enemy.effects)
         if (self.duration <= 0):
             self.enemy.effects.remove(self)
         else:

@@ -1,7 +1,7 @@
 import environment
 from .tooltip import ToolTip
 from .interface import Interface
-from settings import tower_icon_height, tower_icon_width
+from settings import tower_icon_height, tower_icon_width, locked_icon, in_development_mode
 import pygame, math
 
 pygame.font.init()
@@ -19,11 +19,16 @@ class TowerIcon(Interface):
         self.screen = environment.Game.screen
         self.selected_tower = None
 
+    @property 
+    def is_unlocked(self):
+        return self.tower.unlock_level <= self.map.round.level
+
 
 
     def render(self):
         # self.x = x
         # self.y = y
+
         margin = math.floor(self.height * .05)
         rect_width = self.tower.width + math.floor(self.tower.width * 0.7)
         rect_height = self.tower.height + math.floor(self.tower.height * 0.25)
@@ -31,6 +36,12 @@ class TowerIcon(Interface):
         price_height = math.floor(rect_height * .35)
         tower_x = self.x + math.floor(rect_width/2) - math.floor(self.tower.width/2)
         tower_y = self.y + math.floor(rect_height/2) - math.floor(self.tower.height/2)
+
+        if (self.tower.unlock_level > self.map.round.level and not in_development_mode):
+            locked_icon = pygame.transform.scale( pygame.image.load("images/locked_icon.png"), (rect_width, rect_height))
+            self.screen.blit(locked_icon, (self.x, self.y))
+            return 
+
 
         # Draw dithered background
         s = pygame.Surface((rect_width, rect_height))
@@ -52,6 +63,10 @@ class TowerIcon(Interface):
 
 
     def handle_mouse_down(self, x, y):
+
+        if (not self.is_unlocked and not in_development_mode):
+            return False
+        
         if (self.selected_tower):
             current_tile = self.map.get_tile(x, y)
             right_tile = self.map.get_tile(x + self.selected_tower.width, y)
@@ -68,6 +83,7 @@ class TowerIcon(Interface):
                 return 
             self.selected_tower.x, self.selected_tower.y = x, y
             self.selected_tower.is_dragging = False
+            # self.selected_tower.init_effects()
             self.selected_tower = None
         elif ( x <= self.x + self.width and x >= self.x and
              y <= self.y + self.height and y >= self.y):
@@ -81,7 +97,8 @@ class TowerIcon(Interface):
 
     def handle_mouse_motion(self, x, y):
         if ( x <= self.x + self.width and x >= self.x and
-             y <= self.y + self.height and y >= self.y):
+             y <= self.y + self.height and y >= self.y and
+             self.is_unlocked):
              tooltip = ToolTip(self.map, self.y, self.tower.description)
              self.map.tower_select.tooltip = tooltip
         elif(self.map.tower_select.tooltip and

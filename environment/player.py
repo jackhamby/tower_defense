@@ -1,5 +1,6 @@
 
 import pygame
+from settings import in_development_mode
 
 
 class Player():
@@ -8,7 +9,10 @@ class Player():
     def __init__(self):
 
         # Attributes
-        self.gold = 100
+        if in_development_mode:
+            self.gold = 100
+        else:
+            self.gold = 10
         self.health = 100
         
     def purchase(self, price):

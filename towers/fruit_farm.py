@@ -7,15 +7,23 @@ import environment
 
 upgrade_definition_1 = {
     "level" : '2',
+    "produce_time" : 80,
+    "wait_time" : 80,
     "price" : 6,
 }
 
 updage_definition_2 = {
     "price" : 12,
+    "produce_time" : 60,
+    "wait_time" : 60,
+    "produce_value" : 4,
     "level" : '3'
 }
 updage_definition_3 = {
     "price" : 24,
+    "produce_value" : 4,
+    "produce_time": 40,
+    "wait_time" : 40,
     "level" : '4'
 }
 
@@ -26,6 +34,8 @@ class FruitFarm(Tower):
     width = fruit_farm_width
     height = fruit_farm_height
     icon = fruit_farm_icon
+    unlock_level = 6
+
     base_icon_path = "fruit_farm"
     description = '''
     fruit

@@ -33,6 +33,7 @@ class BombTower(Tower):
     width = bomb_tower_width
     height = bomb_tower_height
     icon = bomb_tower_icon
+    unlock_level = 3
     base_icon_path = "bomb_tower"
     description = '''
     a slow firing, 

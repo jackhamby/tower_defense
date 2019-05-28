@@ -8,6 +8,8 @@ class Tower():
     description = '''
         a tower
     '''
+    unlock_level = 1
+
 
     def __init__(self, map_, x, y, width, height, icon):
         self.x = x
@@ -16,6 +18,7 @@ class Tower():
         self.height = height
         self.icon = icon
         self.map = map_
+        self.is_unlocked = False
 
         self.level = 1
         self.is_dragging = False
@@ -24,7 +27,7 @@ class Tower():
         self.fired_projectiles = []
 
         # Default attributes
-
+        self.effects = []  
         self.range = 200
         self.attack_speed = 80
         self.attack = 25
@@ -38,6 +41,11 @@ class Tower():
         environment.Game.screen.blit(self.get_icon(), (self.x, self.y))
         for projectile in self.fired_projectiles:
             projectile.render()
+        for effect in self.effects:
+            effect.apply(self)
+        if (self.is_dragging):
+            pygame.draw.circle(environment.Game.screen, (111, 111, 111), (self.x + math.floor(self.width/2), self.y + math.floor(self.height/2)), self.range, 2)
+
     
     def fire_projectile(self):
         center_x = math.floor(self.x + (self.width / 2))
@@ -45,13 +53,9 @@ class Tower():
         enemy_center_x = math.floor(self.targeted_enemy.x + (self.targeted_enemy.width / 2))
         enemy_center_y = math.floor(self.targeted_enemy.y + (self.targeted_enemy.height / 2))
         projectile = self.projectile_class(self.map, center_x, center_y, enemy_center_x, enemy_center_y, self.attack)
-        # self.fired_projectiles.append(projectile)
         self.attack_wait = self.attack_speed
         projectile.fire(self.targeted_enemy)
         projectile.render()
-        # self.fired_projectiles.append(projectile)
-        # if (self.targeted_enemy):
-        #     self.targeted_enemy.take_damage(self.attack)
 
 
     def try_attack(self):
@@ -111,6 +115,8 @@ class Tower():
             img_path = f'{self.base_icon_path}{self.level}.png'
         return pygame.transform.scale( pygame.image.load(f'images/{img_path}'), (self.width, self.height))
 
+    def init_effects(self):
+        pass
 
 
 

@@ -1,5 +1,5 @@
 import pygame
-from enemies import KingKobold, Kobold, Knight, Goblin
+from enemies import KingKobold, Kobold, Knight, Goblin, Wagon
 from threading import Thread
 from time import sleep
 

@@ -36,6 +36,7 @@ class ArrowTower(Tower):
     height = arrow_tower_height
     icon = arrow_tower_icon
     base_icon_path = "arrow_tower"
+    unlock_level = 1
     description = '''
     a simple tower 
     with medium damage 

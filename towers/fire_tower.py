@@ -36,6 +36,8 @@ class FireTower(Tower):
     height = fire_tower_height
     icon = fire_tower_icon
     base_icon_path = "fire_tower"
+    unlock_level = 5
+
     description = '''
     an expensive low
     damage tower

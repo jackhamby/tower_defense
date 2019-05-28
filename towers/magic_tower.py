@@ -33,6 +33,8 @@ class MagicTower(Tower):
     width = magic_tower_width
     height = magic_tower_height
     icon = magic_tower_icon
+    unlock_level = 2
+
     base_icon_path = "magic_tower"
     description = '''
     a fast shooting,

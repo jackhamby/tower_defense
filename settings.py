@@ -4,7 +4,7 @@ import math, pygame
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 800
 
-
+in_development_mode = True
 
 # =========== Interface sizes / icons ==========================================================================
 # ==============================================================================================================
@@ -64,6 +64,14 @@ sell_button_x = tower_select_x - sell_button_width - tower_select_margin
 sell_button_y = tower_detail_y + tower_select_margin
 
 
+
+tower_detail_display_width = math.floor(tower_select_width * .70)
+tower_detail_display_height = math.floor(tower_select_height * .1)
+tower_detail_display_icon = pygame.transform.scale( pygame.image.load('images/icon_container.png'), (tower_detail_display_width, tower_detail_display_height))
+tower_detail_display_x = tower_select_x - tower_detail_display_width - tower_select_margin - (sell_button_width * 1.5)
+tower_detail_display_y = tower_detail_y + tower_select_margin
+
+
 tooltip_width = math.floor(tower_select_width) + math.floor(tower_select_width / 2)
 tooltip_height = math.floor(tower_select_height * .2)
 tooltip_icon = pygame.transform.scale( pygame.image.load('images/tooltip.png'), (tooltip_width, tooltip_height))
@@ -79,6 +87,11 @@ tooltip_margin = math.floor(tooltip_height * .1)
 arrow_tower_width = math.floor(SCREEN_WIDTH * .025)
 arrow_tower_height = math.floor(SCREEN_HEIGHT * .05)
 arrow_tower_icon = pygame.transform.scale( pygame.image.load("images/arrow_tower1.png"), (arrow_tower_width, arrow_tower_height))
+
+boost_tower_width = math.floor(SCREEN_WIDTH * .025)
+boost_tower_height = math.floor(SCREEN_HEIGHT * .05)
+boost_tower_icon = pygame.transform.scale( pygame.image.load("images/boost_tower1.png"), (boost_tower_width, boost_tower_height))
+
 
 magic_tower_width = math.floor(SCREEN_WIDTH * .025)
 magic_tower_height = math.floor(SCREEN_HEIGHT * .05)
@@ -96,12 +109,11 @@ fire_tower_width = math.floor(SCREEN_WIDTH * .025)
 fire_tower_height = math.floor(SCREEN_HEIGHT * .05)
 fire_tower_icon = pygame.transform.scale( pygame.image.load("images/fire_tower1.png"), (fire_tower_width, fire_tower_height))
 
-
 fruit_farm_width = math.floor(SCREEN_WIDTH * .025)
 fruit_farm_height = math.floor(SCREEN_HEIGHT * .05)
 fruit_farm_icon = pygame.transform.scale( pygame.image.load("images/fruit_farm1.png"), (fruit_farm_width, fruit_farm_height))
 
-
+locked_icon = pygame.transform.scale( pygame.image.load("images/locked_icon.png"), (tower_icon_width, tower_icon_height))
 
 # =========== Enemy sizes / icons ==============================================================================
 # ==============================================================================================================
@@ -120,3 +132,8 @@ knight_icon = pygame.transform.scale( pygame.image.load("images/knight.png"), (k
 goblin_width = 30
 goblin_height = 30
 goblin_icon = pygame.transform.scale( pygame.image.load("images/goblin.png"), (goblin_width, goblin_height))
+
+
+wagon_width = 60
+wagon_height = 50
+wagon_icon = pygame.transform.scale( pygame.image.load("images/wagon.png"), (wagon_width, wagon_height))

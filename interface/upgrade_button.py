@@ -44,3 +44,5 @@ class UpgradeButton(Interface):
         del self.map.selected_tower.upgrades[self.upgrade['level']]
         self.map.tower_detail.upgrade_buttons.remove(self)
 
+
+

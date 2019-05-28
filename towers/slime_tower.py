@@ -35,6 +35,8 @@ class SlimeTower(Tower):
     width = slime_tower_width
     height = slime_tower_height
     icon = slime_tower_icon
+    unlock_level = 4
+
     base_icon_path = "slime_tower"
     description = '''
     a fast shooting,
