@@ -13,4 +13,7 @@ class BoostWave(Projectile):
         self.attribute = attribute
         self.amount = amount
         self.source_tower = source_tower
-        self.effects = [Boost(self.map, self.x, self.y, self.amount, self.attribute, self.source_tower)]
+        self.effects = [Boost(self.map, self.x, self.y, self.attribute, self.amount, self.source_tower)]
+
+
+        # self.boost_wave = self.projectile_class(self.map, self.x, self.y, self.boost_attribute, self.boost_value, self)

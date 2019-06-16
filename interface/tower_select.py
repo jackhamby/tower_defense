@@ -21,7 +21,7 @@ class TowerSelect(Interface):
         # self.y = SCREEN_HEIGHT - self.height
         self.screen = environment.Game.screen
         self.available_attributes = ["gold", "health"]
-        self.available_towers = [ArrowTower, MagicTower, BombTower, SlimeTower, FireTower, FruitFarm, BoostTower]
+        self.available_towers = [ArrowTower, MagicTower, BombTower, SlimeTower, FireTower, FruitFarm]
 
         # Main models to render
         self.data_displays = []

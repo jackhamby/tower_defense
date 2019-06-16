@@ -57,33 +57,46 @@ class BoostTower(Tower):
         }
 
         self.boost_value = 10
-        self.boost_attribute = "speed"
+        self.boost_attribute = "attack_speed"
 
         self.projectile_class = BoostWave
 
 
 
     def try_attack(self):
+        # print('trying attack')
         self.boost_wave = self.projectile_class(self.map, self.x, self.y, self.boost_attribute, self.boost_value, self)
         for tower in self.map.towers:
+            if (tower == self):
+                continue
             if (self.in_range(tower)):
-                for effect in self.boost_wave.effects:
-                    # If tower hasnt been effected the boost tower yet
-                    if (effect.tower != self):
-                        tower.effects.append(effect) 
+                self.try_apply(tower)
+
+                    # # If tower hasnt been effected the boost tower yet
+                    # for tower_effect in tower.effects:
+                    #     if (tower_effect.source_tower != self):
+                    #         print('appending effect to tower')
+                    #         print(tower)
+                    #         tower.effects.append(effect) 
+
+
+    def try_apply(self, tower):
+        for tower_effect in tower.effects:
+            if (tower_effect.source_tower == self):
+                return
+        tower.effects.append(self.boost_wave.effects[0])
+
+                    
+
+
+
 
     def in_range(self, tower):
-        # print('\n')
-        # print(math.sqrt(pow(self.x - tower.x, 2) + pow(self.y - tower.y, 2)))
-        # print(self.range)
-        # print('\n')
         if (math.sqrt(pow(self.x - tower.x, 2) + pow(self.y - tower.y, 2)) <= self.range):
-            # print('tower in range!')
-            pass
+            return True
         else:
-            pass
+            return False
             
-        pass
         
     # def init_effects(self):
     #     self.effects = [Boost(self.map, self.x, self.y, self.boost_value, self.boost_attribute, self.range)]

@@ -15,10 +15,11 @@ class Boost(Effect):
         self.is_applied = False
 
     def apply(self, tower):
+        
         if (not self.is_applied):
-            print('applying')
             self.tower = tower
             new_attr_value = getattr(tower, self.attribute) + self.amount
             setattr(tower, self.attribute, new_attr_value)
+            print('increasing')
             self.is_applied = True
   
