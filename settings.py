@@ -4,7 +4,7 @@ import math, pygame
 SCREEN_WIDTH = 1000
 SCREEN_HEIGHT = 800
 
-in_development_mode = True
+in_development_mode = False
 
 # =========== Interface sizes / icons ==========================================================================
 # ==============================================================================================================

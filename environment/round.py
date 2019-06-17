@@ -49,5 +49,19 @@ class Round():
             return [KingKobold(self.map)] + [Knight(self.map) for i in range(10)] + [Kobold(self.map) for i in range(4)] + [KingKobold(self.map)]+ [Goblin(self.map) for i in range(4)]
         elif(level == 5):
             return  [KingKobold(self.map) for i in range(6) ] + [Knight(self.map) for i in range(15)] + [Goblin(self.map) for i in range(7)]
+        elif(level == 6):
+            return [Knight(self.map) for i in range(20)] +  [Goblin(self.map) for i in range(15)]
+        elif(level == 7):
+            return [Knight(self.map) for i in range(25)] +  [Goblin(self.map) for i in range(30) ] + [Kobold(self.map) for i in range(6)] 
+        elif(level == 8):
+            return [KingKobold(self.map) for i in range(10)] +  [Goblin(self.map) for i in range(30) ] + [Kobold(self.map) for i in range(6)]  + [Knight(self.map) for i in range(15)]
+        elif(level == 9):
+            return [KingKobold(self.map) for i in range(15)] +  [Goblin(self.map) for i in range(45) ] + [Kobold(self.map) for i in range(20)]  + [Knight(self.map) for i in range(30)]
+        elif(level == 10):
+            return [Goblin(self.map) for i in range(60) ]+ [KingKobold(self.map) for i in range(15)] +  [Knight(self.map) for i in range(30)] + [Kobold(self.map) for i in range(25)] 
+        elif(level == 11):
+            return [KingKobold(self.map) for i in range(30)] +  [Knight(self.map) for i in range(30)] + [KingKobold(self.map) for i in range(10)] +  [Goblin(self.map) for i in range(30) ] 
+        elif(level == 12):
+            return [Knight(self.map) for i in range(50)] + [KingKobold(self.map) for i in range(20)] +  [Goblin(self.map) for i in range(60) ] 
         else:
             return []

@@ -18,12 +18,6 @@ class UpgradeButton(Interface):
         environment.Game.screen.blit(self.icon, (self.x, self.y))
         # Render tower icon for upgrade
 
-        # if (len(self.map.selected_tower.upgrades.keys()) != self.upgrade["level"])
-        # if (self.tower.upgrades > self.map.round.level and not in_development_mode):
-        #     locked_icon = pygame.transform.scale( pygame.image.load("images/locked_icon.png"), (rect_width, rect_height))
-        #     self.screen.blit(locked_icon, (self.x, self.y))
-        #     return 
-
         tower_icon_x = self.x + math.floor(self.width / 2) - math.floor(self.tower.width / 2)
         tower_icon_y = self.y + math.floor(self.height * .25)
         environment.Game.screen.blit(self.tower.get_icon(f'{self.tower.base_icon_path}{self.upgrade["level"]}.png'), (tower_icon_x, tower_icon_y))
